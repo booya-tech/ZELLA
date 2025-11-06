@@ -1,0 +1,73 @@
+---
+alwaysApply: true
+---
+Project Context: "ZELLME" (Thai Fashion Marketplace)
+
+This is a native iOS app for the Thai second-hand fashion market.
+AI (Cursor): When providing code, you MUST adhere to the stack and principles below.
+
+Core Tech Stack
+
+iOS: Swift, SwiftUI (latest version).
+
+Architecture: MVVM (Model-View-ViewModel).
+
+Backend: Firebase.
+
+Database: Firestore (using Codable Swift models).
+
+Storage: Firebase Cloud Storage (for item images).
+
+Auth: Firebase Auth (using Sign in with Apple).
+
+Logic: Firebase Cloud Functions (written in TypeScript) for all secure backend tasks.
+
+Payments: Stripe Connect. This is a marketplace, so we MUST use the "In-Chat Escrow Flow" (platform holds funds). Checkout must include PromptPay.
+
+Developer's Step-by-Step Guide
+
+Follow this order. Use Cursor to generate code for each step.
+
+Phase 1: Project Setup (1-2 weeks)
+
+Figma & Firebase: Finalize Figma screens. Set up Firebase project, enable Auth, Firestore, Storage.
+
+iOS Project: Create Xcode project. Add Firebase/Stripe SDKs. Build the main TabView (Home, Swipe, Sell, Chat, Profile).
+
+Models: Define Swift Codable structs for User, Item, Chatroom, Message based on our Firestore design.
+
+Phase 2: Core User & Listing Flow (2-3 weeks)
+
+Auth: Implement Firebase Sign in with Apple.
+
+Profile: Build the Profile screen (view user info, "My Sizes").
+
+List Item: Build the "New Listing" flow (Image Picker, form, saves to Firestore & Storage).
+
+Phase 3: Payments & Escrow (The Core - 4-5 weeks)
+
+This is the hardest part. Be meticulous.
+
+Seller Onboarding: Build the "Become a Seller" flow. This calls a Cloud Function to create a Stripe Connect account and redirects the user to Stripe's onboarding web view (SFSafariViewController).
+
+Checkout Function: Write a Cloud Function (onCall) for "createCheckoutSession." This creates a Stripe Checkout session, takes payment (incl. PromptPay), and holds funds in the platform's account.
+
+Payout Functions: Write Cloud Functions (onCall or onMessage) to trigger payout to the seller only when the buyer confirms delivery.
+
+iOS UI: Integrate the "In-Chat Escrow" UI cards that call these functions.
+
+Phase 4: Main App Features (3-4 weeks)
+
+Chat: Build the chatroom (Firestore onSnapshot listener).
+
+Search: Build the Home screen with a search bar and filters (querying Firestore).
+
+Swipe Feed: Build the "Tinder-swipe" UI (TabView with DragGesture).
+
+Phase 5: Completion (2-3 weeks)
+
+Reviews: Implement the post-sale review system.
+
+Localization: Localize all strings for the Thai market support 2 languages (EN/TH).
+
+TestFlight: Test the full payment flow 100x in Stripe Test Mode. Launch beta.
