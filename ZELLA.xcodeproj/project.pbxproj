@@ -19,9 +19,23 @@
 		C0D1672C2EBB9E8600C9307F /* ZELLA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZELLA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C0176BED2EBCECDA0082C870 /* Exceptions for "ZELLA" folder in "ZELLA" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GoogleService-Info-Dev.plist",
+				"GoogleService-Info-Prod.plist",
+			);
+			target = C0D1672B2EBB9E8600C9307F /* ZELLA */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C0D1672E2EBB9E8600C9307F /* ZELLA */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C0176BED2EBCECDA0082C870 /* Exceptions for "ZELLA" folder in "ZELLA" target */,
+			);
 			path = ZELLA;
 			sourceTree = "<group>";
 		};
@@ -69,6 +83,7 @@
 			buildPhases = (
 				C0D167282EBB9E8600C9307F /* Sources */,
 				C0D167292EBB9E8600C9307F /* Frameworks */,
+				C0176BEE2EBCED1B0082C870 /* Firebase Config */,
 				C0D1672A2EBB9E8600C9307F /* Resources */,
 			);
 			buildRules = (
@@ -138,6 +153,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C0176BEE2EBCED1B0082C870 /* Firebase Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/$(PRODUCT_NAME)/GoogleService-Info-Prod.plist",
+				"$(PROJECT_DIR)/$(PRODUCT_NAME)/GoogleService-Info-Dev.plist",
+			);
+			name = "Firebase Config";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME).app/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Copy the correct GoogleService-Info.plist based on configuration\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    echo \"Using Dev Firebase configuration\"\n    cp \"${PROJECT_DIR}/${PRODUCT_NAME}/GoogleService-Info-Dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nelse\n    echo \"Using Prod Firebase configuration\"\n    cp \"${PROJECT_DIR}/${PRODUCT_NAME}/GoogleService-Info-Prod.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C0D167282EBB9E8600C9307F /* Sources */ = {

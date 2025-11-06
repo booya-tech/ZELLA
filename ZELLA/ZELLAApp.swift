@@ -6,9 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct ZELLAApp: App {
+
+    init() {
+        FirebaseApp.configure()
+
+        Config.printEnvironment()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
