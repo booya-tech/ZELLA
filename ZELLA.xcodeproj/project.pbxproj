@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0176BDB2EBCE2170082C870 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BDA2EBCE2170082C870 /* FirebaseAuth */; };
+		C0176BDD2EBCE2170082C870 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BDC2EBCE2170082C870 /* FirebaseFirestore */; };
+		C0176BDF2EBCE2170082C870 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BDE2EBCE2170082C870 /* FirebaseFunctions */; };
+		C0176BE12EBCE2170082C870 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE02EBCE2170082C870 /* FirebaseMessaging */; };
+		C0176BE32EBCE2170082C870 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE22EBCE2170082C870 /* FirebaseStorage */; };
+		C0176BE62EBCE2480082C870 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE52EBCE2480082C870 /* StripePaymentSheet */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C0D1672C2EBB9E8600C9307F /* ZELLA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZELLA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +32,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0176BE12EBCE2170082C870 /* FirebaseMessaging in Frameworks */,
+				C0176BDF2EBCE2170082C870 /* FirebaseFunctions in Frameworks */,
+				C0176BDB2EBCE2170082C870 /* FirebaseAuth in Frameworks */,
+				C0176BE32EBCE2170082C870 /* FirebaseStorage in Frameworks */,
+				C0176BE62EBCE2480082C870 /* StripePaymentSheet in Frameworks */,
+				C0176BDD2EBCE2170082C870 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +80,12 @@
 			);
 			name = ZELLA;
 			packageProductDependencies = (
+				C0176BDA2EBCE2170082C870 /* FirebaseAuth */,
+				C0176BDC2EBCE2170082C870 /* FirebaseFirestore */,
+				C0176BDE2EBCE2170082C870 /* FirebaseFunctions */,
+				C0176BE02EBCE2170082C870 /* FirebaseMessaging */,
+				C0176BE22EBCE2170082C870 /* FirebaseStorage */,
+				C0176BE52EBCE2480082C870 /* StripePaymentSheet */,
 			);
 			productName = ZELLA;
 			productReference = C0D1672C2EBB9E8600C9307F /* ZELLA.app */;
@@ -94,6 +115,10 @@
 			);
 			mainGroup = C0D167232EBB9E8600C9307F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C0176BE42EBCE2480082C870 /* XCRemoteSwiftPackageReference "stripe-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C0D1672D2EBB9E8600C9307F /* Products */;
 			projectDirPath = "";
@@ -332,6 +357,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.5.0;
+			};
+		};
+		C0176BE42EBCE2480082C870 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 25.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0176BDA2EBCE2170082C870 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C0176BDC2EBCE2170082C870 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		C0176BDE2EBCE2170082C870 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		C0176BE02EBCE2170082C870 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		C0176BE22EBCE2170082C870 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		C0176BE52EBCE2480082C870 /* StripePaymentSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0176BE42EBCE2480082C870 /* XCRemoteSwiftPackageReference "stripe-ios" */;
+			productName = StripePaymentSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0D167242EBB9E8600C9307F /* Project object */;
 }
