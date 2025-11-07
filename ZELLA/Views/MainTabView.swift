@@ -13,35 +13,34 @@ struct MainTabView: View {
             // MARK: 1. Home
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "house.fill")
+                    Label("Home", systemImage: "house")
                 }
             
             // MARK: 2. Swipe
             SwipeView()
                 .tabItem {
-                    Label("Swipe", systemImage: "flame.fill")
+                    Label("Swipe", systemImage: "flame")
                 }
             
             // MARK: 3. Sell
             SellView()
                 .tabItem {
-                    Label("Sell", systemImage: "plus.circle.fill")
+                    Label("Sell", systemImage: "plus.circle")
                 }
             
             // MARK: 4. Chat
             ChatListView()
                 .tabItem {
-                    Label("Chat", systemImage: "message.fill")
+                    Label("Chat", systemImage: "message")
                 }
             
             // MARK: 5. Profile
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.fill")
+                    Label("Profile", systemImage: "person")
                 }
         }
-        // Thai market brand color (adjust to your brand)
-        .tint(Color(red: 0.1, green: 0.4, blue: 0.8))
+        .tint(.black)
     }
 }
 
