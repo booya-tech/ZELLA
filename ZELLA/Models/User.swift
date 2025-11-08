@@ -16,8 +16,8 @@ struct User: Identifiable, Codable {
     var profileImageURL: String?
     // use firebase's timestamp
     let joinedDate: Timestamp
-    var isVerifiedSellet: Bool = false
-    var stripConnectID: String?
+    var isVerifiedSeller: Bool = false
+    var stripeConnectID: String?
     
     // non-codable property for the UI
     var uid: String { id ?? "" }
