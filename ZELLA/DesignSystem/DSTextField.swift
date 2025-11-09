@@ -11,6 +11,8 @@ struct DSTextField: View {
     let placeholder: String
     @Binding var text: String
     var isSecure: Bool = false
+    var keyboardType: UIKeyboardType = .default
+    var textContentType: UITextContentType? = nil
 
     @State private var isPasswordVisible: Bool = false
     

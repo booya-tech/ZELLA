@@ -60,6 +60,8 @@ enum AppString {
     static let userDisabled = "This account has been disabled."
     static let emailAlreadyInUse = "This email is already registered."
     static let weakPassword = "Password is too weak. Use at least 6 characters."
+    static let invalidVerificationCode = "Invalid verification code. Please try again."
+    static let verificationCodeCheckDigits = "Verification code must be 5 digits"
     
     // MARK: - Coming Soon
     static let emailSignInComingSoon = "Email sign in not yet implemented"

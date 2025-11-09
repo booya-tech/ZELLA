@@ -22,7 +22,14 @@ struct EmailSignUpView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showVerification) {
-            EmailVerificationView(email: viewModel.email)
+            // Review here
+            if let uid = AuthService.shared.currentUserID {
+                EmailVerificationView(
+                    uid: uid,
+                    email: viewModel.email,
+                    name: viewModel.name
+                )
+            }
         }
         .alert(AppString.errorTitle, isPresented: .constant(viewModel.errorMessage != nil)) {
             Button(AppString.ok) { viewModel.errorMessage = nil }

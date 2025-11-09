@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct EmailVerificationView: View {
+    let uid: String
     let email: String
-    @State private var viewModel = EmailVerificationViewModel()
+    let name: String
+
+    @State private var viewModel: EmailVerificationViewModel
+    @Environment(\.dismiss) private var dismiss
+
+    init(uid: String, email: String, name: String) {
+        self.uid = uid
+        self.email = email
+        self.name = name
+        _viewModel = State(
+            initialValue: EmailVerificationViewModel(uid: uid, email: email, name: name))
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -39,10 +51,6 @@ struct EmailVerificationView: View {
             
             Text(AppString.verificationSent)
                 .font(.subheadline)
-                .foregroundColor(.secondary) 
-
-            Text(AppString.verificationLink)
-                .font(.caption)
                 .foregroundColor(.secondary)
         }
         .padding(.top, 20)
@@ -56,13 +64,17 @@ struct EmailVerificationView: View {
     }
     
     private var verificationField: some View {
+        // Review here
         DSTextField(
             placeholder: AppString.verificationCodePlaceholder,
-            text: $viewModel.verificationCode
+            text: $viewModel.verificationCode,
+            keyboardType: .numberPad,
+            textContentType: .oneTimeCode
         )
     }
     
     private var timerAndResend: some View {
+        // Review here
         HStack {
             Text(AppString.verificationValid)
                 .font(.caption)
@@ -70,10 +82,22 @@ struct EmailVerificationView: View {
             
             Spacer()
             
-            DSResendButton(
-                title: AppString.resendCode) {
-                    viewModel.resendCode()
-                }
+            if viewModel.canResend {
+                DSResendButton(
+                    title: AppString.resendCode,
+                    action: {
+                        Task {
+                            await viewModel.resendCode()
+                        }
+                    }
+                )
+            } else {
+                Text("Resend in \(viewModel.resendCooldown)s")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+            }
         }
         .padding(.top, 8)
     }
@@ -81,7 +105,17 @@ struct EmailVerificationView: View {
     private var confirmButton: some View {
         DSPrimaryButton(
             title: AppString.confirm,
-            action: { Task { _ = await viewModel.confirmCode() } },
+            action: {
+                Task {
+                    let success = await viewModel.confirmCode()
+                    if success {
+                        // AuthService will update isAuthenticated
+                        // ContentRouter in ZELLAApp will automatically show MainTabView
+                        // We can dismiss this view to clean up navigation stack
+                        dismiss()
+                    }
+                }
+            },
             isLoading: viewModel.isLoading
         )
         .padding(.top, 28)
@@ -90,6 +124,10 @@ struct EmailVerificationView: View {
 
 #Preview {
     NavigationStack {
-        EmailVerificationView(email: "user@gmail.com")
+        EmailVerificationView(
+            uid: "preview-uid",
+            email: "user@gmail.com",
+            name: "Test User"
+        )
     }
 }
