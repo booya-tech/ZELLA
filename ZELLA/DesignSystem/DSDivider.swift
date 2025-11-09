@@ -26,7 +26,3 @@ struct DSDivider: View {
         }
     }
 }
-
-#Preview {
-    DSDivider(text: "OR")
-}

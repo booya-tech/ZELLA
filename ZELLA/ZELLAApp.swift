@@ -10,7 +10,6 @@ import FirebaseCore
 
 @main
 struct ZELLAApp: App {
-
     init() {
         FirebaseApp.configure()
 
@@ -18,7 +17,19 @@ struct ZELLAApp: App {
     }
     var body: some Scene {
         WindowGroup {
+            ContentRouter()
+        }
+    }
+}
+
+struct ContentRouter: View {
+    @State private var authService = AuthService.shared
+
+    var body: some View {
+        if authService.isAuthenticated {
             MainTabView()
+        } else {
+            SignInView()
         }
     }
 }

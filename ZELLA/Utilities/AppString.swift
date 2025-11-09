@@ -18,9 +18,8 @@ enum AppString {
     static let signIn = "Sign In"
     static let forgotPassword = "Forgot Your Password?"
     static let orDivider = "OR"
-    static let continueWithApple = "Continue with Apple"
-    static let continueWithFacebook = "Continue with Facebook"
-    static let continueWithGoogle = "Continue with Google"
+    static let signInWithFacebook = "Sign in with Facebook"
+    static let signInWithGoogle = "Sign in with Google"
     static let registerWithEmail = "Register with Email"
     
     // MARK: - Sign Up

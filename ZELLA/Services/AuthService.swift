@@ -19,7 +19,9 @@ class AuthService {
     var isAuthenticated: Bool = false
     var currentUserID: String?
 
-    private let db = Firestore.firestore()
+    private var db: Firestore {
+        Firestore.firestore()
+    }
 
     private init() {
         // Check if user is already signed in

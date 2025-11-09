@@ -10,7 +10,11 @@ import SwiftUI
 
 struct AppColors {
     // 3 main app colors
-    static let blackColor = UIColor(.black)
     static let blackSecondaryColor = UIColor(named: "BlackSecondary")
     static let whiteCloudyColor = UIColor(named: "WhiteCloudy")
+    static let textFieldBorderColor = UIColor(named: "TextFieldBorder")
+    // SwiftUI Color versions
+    static let textFieldBorder = Color(uiColor: textFieldBorderColor ?? .clear)
+    // Button
+    static let blackStroke = Color.black
 }
