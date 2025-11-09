@@ -2,3 +2,5 @@
 buildServer.json
 
 ZELLA.xcodeproj/project.xcworkspace/xcuserdata/boopannachai.xcuserdatad/UserInterfaceState.xcuserstate
+
+functions/src/config.ts
