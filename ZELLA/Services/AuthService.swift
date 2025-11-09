@@ -82,7 +82,7 @@ class AuthService {
             joinedDate: Timestamp(date: Date()),
             isVerifiedSeller: false,
             stripeConnectID: nil,
-            emailVerification: false
+            emailVerified: false
         )
 
         try db.collection("users").document(result.user.uid).setData(from: newUser)
@@ -93,7 +93,7 @@ class AuthService {
         try await storeVerificationCode(uid: result.user.uid, code: code)
 
         // Send verification email
-        try await result.user.sendEmailVerification()
+        try await sendVerificationEmail(email: email, code: code, name: name)
         Logger.log("🟢 Verification email sent to: \(email)")
 
         self.currentUserID = result.user.uid
@@ -134,7 +134,7 @@ class AuthService {
         let data: [String: Any] = [
             "email": email,
             "code": code,
-            "name": name,
+            "name": name
         ]
 
         do {
@@ -144,6 +144,117 @@ class AuthService {
             Logger.log("🔴 Failed to send email: \(error)")
             throw error
         }
+    }
+
+    func verifyEmailCode(uid: String, inputCode: String) async throws -> Bool {
+        let verificationRef = db.collection("users").document(uid)
+            .collection("verification").document("email")
+
+        let snapshot = try await verificationRef.getDocument()
+
+        guard snapshot.exists else {
+            throw NSError(
+                domain: "AuthService", code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "No verification code found"])
+        }
+
+        var verification = try snapshot.data(as: EmailVerification.self)
+
+        // Check if expired
+        if verification.isExpired {
+            throw NSError(
+                domain: "AuthService", code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Verification code has expired"])
+        }
+
+        // Check if too many attempts
+        if verification.hasExceededAttempts {
+            throw NSError(
+                domain: "AuthService", code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey:
+                        "Too many failed attempts. Please request a new code."
+                ])
+        }
+
+        // Increment attempts
+        verification.attempts += 1
+        try verificationRef.setData(from: verification)
+
+        // Check if code matches
+        if verification.code == inputCode {
+            // Mark user as verified
+            try await db.collection("users").document(uid).updateData([
+                "emailVerified": true
+            ])
+
+            // Update local user
+            if var user = currentUser {
+                user.emailVerified = true
+                self.currentUser = user
+            }
+
+            // Delete verification document
+            try await verificationRef.delete()
+
+            Logger.log("🟢 Email verified for user: \(uid)")
+            return true
+        } else {
+            Logger.log("🔴 Invalid code. Attempts: \(verification.attempts)")
+            return false
+        }
+    }
+
+    func resendVerificationCode(uid: String, email: String, name: String) async throws {
+        let verificationRef = db.collection("users").document(uid)
+            .collection("verification").document("email")
+
+        let snapshot = try await verificationRef.getDocument()
+
+        var verification: EmailVerification
+        let now = Timestamp(date: Date())
+
+        if snapshot.exists {
+            verification = try snapshot.data(as: EmailVerification.self)
+
+            // Check if can resend
+            if !verification.canResend() {
+                throw NSError(
+                    domain: "AuthService", code: -1,
+                    userInfo: [
+                        NSLocalizedDescriptionKey: "Too many resend attempts. Please wait 1 hour."
+                    ])
+            }
+
+            // Update resend count
+            verification.resendCount += 1
+            verification.lastResendAt = now
+        } else {
+            // First time
+            verification = EmailVerification(
+                code: "",
+                createdAt: now,
+                expiresAt: now,
+                attempts: 0,
+                lastResendAt: now,
+                resendCount: 1
+            )
+        }
+
+        // Generate new code
+        let newCode = generateVerificationCode()
+        verification.code = newCode
+        verification.createdAt = now
+        verification.expiresAt = Timestamp(date: Date().addingTimeInterval(1800))
+        verification.attempts = 0
+
+        // Store new code
+        try verificationRef.setData(from: verification)
+
+        // Send email
+        try await sendVerificationEmail(email: email, code: newCode, name: name)
+
+        Logger.log("🟢 Verification code resent to: \(email)")
     }
 
     // MARK: - Sign in with Apple
@@ -230,7 +341,8 @@ class AuthService {
                 profileImageURL: nil,
                 joinedDate: Timestamp(date: Date()),
                 isVerifiedSeller: false,
-                stripeConnectID: nil
+                stripeConnectID: nil,
+                emailVerified: true
             )
 
             try userRef.setData(from: newUser)

@@ -11,9 +11,9 @@ import FirebaseFirestore
 /// Represents an email verification document
 /// Stored at: users/{uid}/verification/email
 struct EmailVerification: Codable {
-    let code: String
-    let createdAt: Timestamp
-    let expiresAt: Timestamp
+    var code: String
+    var createdAt: Timestamp
+    var expiresAt: Timestamp
     var attempts: Int
     var lastResendAt: Timestamp?
     var resendCount: Int

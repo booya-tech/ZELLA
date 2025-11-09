@@ -18,7 +18,7 @@ struct User: Identifiable, Codable {
     let joinedDate: Timestamp
     var isVerifiedSeller: Bool = false
     var stripeConnectID: String?
-    var emailVerification: Bool = false
+    var emailVerified: Bool = false
     
     // non-codable property for the UI
     var uid: String { id ?? "" }
