@@ -10,6 +10,8 @@ import Observation
 
 @Observable
 class SignUpViewModel {
+    private let authService = AuthService.shared
+
     var email = ""
     var name = ""
     var password = ""
@@ -42,8 +44,16 @@ class SignUpViewModel {
         isLoading = true
         defer { isLoading = false }
         
-        // TODO: Implement Firebase email sign up
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
-        return true
+        do {
+            try await authService.signUpWithEmail(
+                email: email,
+                password: password,
+                name: name
+            )
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
     }
 }

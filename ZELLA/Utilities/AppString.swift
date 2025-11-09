@@ -36,6 +36,7 @@ enum AppString {
     static let verificationValid = "The verification code is valid for 30 minutes"
     static let resendCode = "Resend code"
     static let confirm = "Confirm"
+    static let verificationLink = "Please check your email and click the verification link."
     
     // MARK: - Placeholders
     static let enterEmail = "Enter your email address"
@@ -52,6 +53,13 @@ enum AppString {
     static let passwordTooShort = "Password must be at least 6 characters"
     static let passwordMismatch = "Passwords do not match"
     static let emptyVerificationCode = "Please enter verification code"
+    // Firebase Auth Errors
+    static let wrongPassword = "Incorrect password. Please try again."
+    static let userNotFound = "No account found with this email."
+    static let invalidEmail = "Invalid email address."
+    static let userDisabled = "This account has been disabled."
+    static let emailAlreadyInUse = "This email is already registered."
+    static let weakPassword = "Password is too weak. Use at least 6 characters."
     
     // MARK: - Coming Soon
     static let emailSignInComingSoon = "Email sign in not yet implemented"

@@ -59,6 +59,40 @@ class AuthService {
         }
     }
 
+    // MARK: - Sign in with Email
+    func signInWithEmail(email: String, password: String) async throws {
+        let result = try await Auth.auth().signIn(withEmail: email, password: password)
+        self.currentUserID = result.user.uid
+        self.isAuthenticated = true
+        fetchUserData(uid: result.user.uid)
+        Logger.log("🟢 Email sign in successful")
+    }
+
+    func signUpWithEmail(email: String, password: String, name: String) async throws {
+        // Create auth account
+        let result = try await Auth.auth().createUser(withEmail: email, password: password)
+
+        // Create user document
+        let newUser = User(
+            id: result.user.uid,
+            username: name,
+            profileImageURL: nil,
+            joinedDate: Timestamp(date: Date()),
+            isVerifiedSeller: false,
+            stripeConnectID: nil
+        )
+
+        try db.collection("users").document(result.user.uid).setData(from: newUser)
+
+        // Send verification email
+        try await result.user.sendEmailVerification()
+
+        self.currentUserID = result.user.uid
+        self.isAuthenticated = true
+        self.currentUser = newUser
+        Logger.log("🟢 Email sign up successful")
+    }
+
     // MARK: - Sign in with Apple
     func signOut() throws {
         try Auth.auth().signOut()

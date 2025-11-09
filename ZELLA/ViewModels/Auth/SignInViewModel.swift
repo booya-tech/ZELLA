@@ -27,10 +27,16 @@ class SignInViewModel {
         isLoading = true
         defer { isLoading = false }
         
-        // TODO: Implement Firebase email/password sign in
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
-        errorMessage = AppString.emailSignInComingSoon
-        return false
+        do {
+            try await authService.signInWithEmail(
+                email: email,
+                password: password
+            )
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
     }
     
     // MARK: - Apple Sign In

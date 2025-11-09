@@ -39,6 +39,10 @@ struct EmailVerificationView: View {
             
             Text(AppString.verificationSent)
                 .font(.subheadline)
+                .foregroundColor(.secondary) 
+
+            Text(AppString.verificationLink)
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
         .padding(.top, 20)
