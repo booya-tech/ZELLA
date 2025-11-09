@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import AuthenticationServices
 import Observation
+import FirebaseFunctions
 
 @Observable
 class AuthService {
@@ -71,6 +72,7 @@ class AuthService {
     func signUpWithEmail(email: String, password: String, name: String) async throws {
         // Create auth account
         let result = try await Auth.auth().createUser(withEmail: email, password: password)
+        Logger.log("🟢 Firebase account created: \(result.user.uid)")
 
         // Create user document
         let newUser = User(
@@ -79,18 +81,69 @@ class AuthService {
             profileImageURL: nil,
             joinedDate: Timestamp(date: Date()),
             isVerifiedSeller: false,
-            stripeConnectID: nil
+            stripeConnectID: nil,
+            emailVerification: false
         )
 
         try db.collection("users").document(result.user.uid).setData(from: newUser)
+        Logger.log("🟢 User document created for: \(name)")
+
+        // Generate verification code
+        let code = generateVerificationCode()
+        try await storeVerificationCode(uid: result.user.uid, code: code)
 
         // Send verification email
         try await result.user.sendEmailVerification()
+        Logger.log("🟢 Verification email sent to: \(email)")
 
         self.currentUserID = result.user.uid
         self.isAuthenticated = true
         self.currentUser = newUser
         Logger.log("🟢 Email sign up successful")
+    }
+
+    // MARK: - Email Verification
+    func generateVerificationCode() -> String {
+        return String(format: "%05d", Int.random(in: 0...99999))
+    }
+
+    func storeVerificationCode(uid: String, code: String) async throws {
+        let now = Timestamp(date: Date())
+        let expiresAt = Timestamp(date: Date().addingTimeInterval(1800))  // 30 minutes
+
+        let verification = EmailVerification(
+            code: code,
+            createdAt: now,
+            expiresAt: expiresAt,
+            attempts: 0,
+            lastResendAt: nil,
+            resendCount: 0
+        )
+
+        try db.collection("users").document(uid)
+            .collection("verification").document("email")
+            .setData(from: verification)
+
+        Logger.log("🟢 Verification code stored for user: \(uid)")
+    }
+
+    func sendVerificationEmail(email: String, code: String, name: String) async throws {
+        let functions = Functions.functions(region: "asia-southeast1")
+        let sendEmail = functions.httpsCallable("sendVerificationEmail")
+
+        let data: [String: Any] = [
+            "email": email,
+            "code": code,
+            "name": name,
+        ]
+
+        do {
+            let result = try await sendEmail.call(data)
+            Logger.log("🟢 Verification email sent: \(result)")
+        } catch {
+            Logger.log("🔴 Failed to send email: \(error)")
+            throw error
+        }
     }
 
     // MARK: - Sign in with Apple

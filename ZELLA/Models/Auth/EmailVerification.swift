@@ -12,7 +12,7 @@ import FirebaseFirestore
 /// Stored at: users/{uid}/verification/email
 struct EmailVerification: Codable {
     let code: String
-    let createAt: Timestamp
+    let createdAt: Timestamp
     let expiresAt: Timestamp
     var attempts: Int
     var lastResendAt: Timestamp?
