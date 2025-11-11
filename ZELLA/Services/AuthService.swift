@@ -274,7 +274,6 @@ class AuthService {
         currentUser = nil
         isAuthenticated = false
         currentUserID = nil
-        Logger.log("👋🏻 User signed out")
     }
 
     func deleteAccount(uid: String) async throws {
