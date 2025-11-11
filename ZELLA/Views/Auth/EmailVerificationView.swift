@@ -13,6 +13,7 @@ struct EmailVerificationView: View {
     let name: String
 
     @State private var viewModel: EmailVerificationViewModel
+    @State private var showCancelAlert: Bool = false
     @Environment(\.dismiss) private var dismiss
 
     init(uid: String, email: String, name: String) {
@@ -34,6 +35,38 @@ struct EmailVerificationView: View {
         }
         .padding(.horizontal, 16)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(AppString.cancel) {
+                    showCancelAlert = true
+                }
+                .foregroundColor(.black)
+            }
+        }
+        .alert(
+            AppString.cancelSignupTitle, isPresented: $showCancelAlert,
+            actions: {
+                Button(AppString.stay, role: .cancel) {}
+                Button(AppString.cancelSignup, role: .destructive) {
+                    Task {
+                        do {
+                            try await viewModel.cancelSignUp()
+                            // Dismiss twice to get back to SignInView
+                            dismiss()
+                            try? await Task.sleep(nanoseconds: 100_000_000)  // 0.1 second
+                            dismiss()
+                        } catch {
+                            viewModel.errorMessage =
+                                "Failed to cancel sign up: \(error.localizedDescription)"
+                        }
+                    }
+                }
+            },
+            message: {
+                Text(AppString.cancelSignupMessage)
+            }
+        )
         .alert(AppString.errorTitle, isPresented: .constant(viewModel.errorMessage != nil)) {
             Button(AppString.ok) { viewModel.errorMessage = nil }
         } message: {

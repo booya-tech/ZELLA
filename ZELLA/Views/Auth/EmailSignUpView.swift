@@ -36,6 +36,12 @@ struct EmailSignUpView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+        .onAppear {
+            // Clear form if user is not authenticated (came back from cancelled sign up)
+            if !AuthService.shared.isAuthenticated && AuthService.shared.currentUserID == nil {
+                viewModel.clearForm()
+            }
+        }
     }
     
     // MARK: - UI Components

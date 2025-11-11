@@ -37,6 +37,11 @@ enum AppString {
     static let resendCode = "Resend code"
     static let confirm = "Confirm"
     static let verificationLink = "Please check your email and click the verification link."
+    static let cancelSignup = "Cancel Signup"
+    static let cancelSignupTitle = "Cancel Signup?"
+    // will change later (cancelSignupMessage)
+    static let cancelSignupMessage = "This will delete your account and you can start over."
+    static let stay = "Stay"
     
     // MARK: - Placeholders
     static let enterEmail = "Enter your email address"

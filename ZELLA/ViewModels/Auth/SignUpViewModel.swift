@@ -56,4 +56,13 @@ class SignUpViewModel {
             return false
         }
     }
+
+    // MARK: - Clear Form
+    func clearForm() {
+        email = ""
+        name = ""
+        password = ""
+        confirmPassword = ""
+        errorMessage = nil
+    }
 }

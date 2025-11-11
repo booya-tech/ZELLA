@@ -23,6 +23,8 @@ struct DSTextField: View {
                     SecureField(placeholder, text: $text)
                 } else {
                     TextField(placeholder, text: $text)
+                        .keyboardType(keyboardType)
+                        .textContentType(textContentType)
                 }
             }
             .frame(height: 40)

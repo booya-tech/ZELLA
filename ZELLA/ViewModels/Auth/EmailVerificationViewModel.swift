@@ -108,4 +108,18 @@ class EmailVerificationViewModel {
             }
         }
     }
+
+    // MARK: - Cancel Sign up
+    func cancelSignUp() async throws {
+        isLoading = true
+        defer { isLoading = false }
+
+        do {
+            try await authService.deleteAccount(uid: uid)
+            Logger.log("🟢 Sign up cancelled successfully")
+        } catch {
+            Logger.log("🔴 Error cancelling sign up: \(error.localizedDescription)")
+            throw error
+        }
+    }
 }

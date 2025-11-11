@@ -19,6 +19,7 @@ class AuthService {
     var currentUser: User? 
     var isAuthenticated: Bool = false
     var currentUserID: String?
+    private var currentNonce: String?
 
     private var db: Firestore {
         Firestore.firestore()
@@ -32,11 +33,11 @@ class AuthService {
         // Listen for auth state changes
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             self?.currentUserID = user?.uid
-            self?.isAuthenticated = user != nil
             if let uid = user?.uid {
                 self?.fetchUserData(uid: uid)
             } else {
                 self?.currentUser = nil
+                self?.isAuthenticated = false
             }
         }
     }
@@ -51,8 +52,16 @@ class AuthService {
 
             if let snapshot = snapshot, snapshot.exists {
                 do {
-                    self?.currentUser = try snapshot.data(as: User.self)
-                    Logger.log("🟢 User data loaded: \(self?.currentUser?.username ?? "")")
+                    let user = try snapshot.data(as: User.self)
+                    self?.currentUser = user
+                    
+                    if user.emailVerified {
+                        self?.isAuthenticated = true
+                        Logger.log("🟢 User data loaded: \(self?.currentUser?.username ?? "")")
+                    } else {
+                        self?.isAuthenticated = false
+                        Logger.log("⚠️ User data loaded: \(user.username) (Unverified)")
+                    }
                 } catch {
                     Logger.log("🔴 Error decoding user data: \(error.localizedDescription)")
                 }
@@ -64,7 +73,8 @@ class AuthService {
     func signInWithEmail(email: String, password: String) async throws {
         let result = try await Auth.auth().signIn(withEmail: email, password: password)
         self.currentUserID = result.user.uid
-        self.isAuthenticated = true
+        
+        // Fetch user data first to check verification status
         fetchUserData(uid: result.user.uid)
         Logger.log("🟢 Email sign in successful")
     }
@@ -97,7 +107,6 @@ class AuthService {
         Logger.log("🟢 Verification email sent to: \(email)")
 
         self.currentUserID = result.user.uid
-        self.isAuthenticated = true
         self.currentUser = newUser
         Logger.log("🟢 Email sign up successful")
     }
@@ -194,6 +203,8 @@ class AuthService {
                 self.currentUser = user
             }
 
+            self.isAuthenticated = true
+
             // Delete verification document
             try await verificationRef.delete()
 
@@ -266,7 +277,35 @@ class AuthService {
         Logger.log("👋🏻 User signed out")
     }
 
-    private var currentNonce: String?
+    func deleteAccount(uid: String) async throws {
+        // Delete verification document
+        let verificationRef = db.collection("users").document(uid).collection("verification").document("email")
+        try await verificationRef.delete()
+        Logger.log("🗑️ Verification document deleted")
+        
+        // Delete user document from Firestore
+        try await db.collection("users").document(uid).delete()
+        Logger.log("🗑️ User document deleted from Firestore")
+
+        // Delete Firebase Auth account
+        guard let currentUser = Auth.auth().currentUser else {
+            throw NSError(
+                domain: "AuthService", code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey:
+                        "No authenticated user to delete"
+                ])
+        }
+
+        try await currentUser.delete()
+        Logger.log("🗑️ Firebase Auth account deleted")
+
+        // Clear local storage
+        self.currentUser = nil
+        self.isAuthenticated = false
+        self.currentUserID = nil
+        Logger.log("🟢 Account deletion complete")
+    }
 
     func startSignInWithAppleFlow() -> String {
         let nonce = Helpers.randomNonceString()
