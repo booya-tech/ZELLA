@@ -11,6 +11,8 @@ import FirebaseFirestore
 import AuthenticationServices
 import Observation
 import FirebaseFunctions
+import GoogleSignIn
+import FirebaseCore
 
 @Observable
 class AuthService {
@@ -391,4 +393,72 @@ class AuthService {
         }
     }
 
+    // MARK: - Sign in with Google
+    func signInWithGoogle(presentingViewController: UIViewController) async throws {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            throw NSError(
+                domain: "AuthService",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Missing Google Client ID"]
+            )
+        }
+
+        // Configure Google Sign-In
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Sign in with Google
+        let result = try await GIDSignIn.sharedInstance.signIn(
+            withPresenting: presentingViewController
+        )
+
+        guard let idToken = result.user.idToken?.tokenString else {
+            throw NSError(
+                domain: "AuthService",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Missing Google ID token"]
+            )
+        }
+
+        let accessToken = result.user.accessToken.tokenString
+
+        // Create Firebase credential
+        let credential = GoogleAuthProvider.credential(
+            withIDToken: idToken,
+            accessToken: accessToken
+        )
+
+        // Sign in with Firebase
+        let authResult = try await Auth.auth().signIn(with: credential)
+        Logger.log("🟢 Firebase sign in successful: \(authResult.user.uid)")
+
+        self.currentUserID = authResult.user.uid
+
+        // Check if this is a new user
+        let userRef = db.collection("users").document(authResult.user.uid)
+        let userDoc = try await userRef.getDocument()
+
+        if !userDoc.exists {
+            // Create new user document
+            let username = result.user.profile?.name ?? "User"
+            let profileImageURL = result.user.profile?.imageURL(withDimension: 200)?.absoluteString
+
+            let newUser = User(
+                id: authResult.user.uid,
+                username: username,
+                profileImageURL: profileImageURL,
+                joinedDate: Timestamp(date: Date()),
+                isVerifiedSeller: false,
+                stripeConnectID: nil,
+                emailVerified: true
+            )
+
+            try userRef.setData(from: newUser)
+            self.currentUser = newUser
+            self.isAuthenticated = true
+            Logger.log("🟢 New user created: \(newUser.username)")
+        } else {
+            fetchUserData(uid: authResult.user.uid)
+        }
+    }
 }

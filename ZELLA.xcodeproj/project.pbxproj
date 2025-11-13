@@ -14,6 +14,7 @@
 		C0176BE32EBCE2170082C870 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE22EBCE2170082C870 /* FirebaseStorage */; };
 		C0176BE62EBCE2480082C870 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE52EBCE2480082C870 /* StripePaymentSheet */; };
 		C048B7B62EC380FD00A36538 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7B52EC380FD00A36538 /* GoogleSignInSwift */; };
+		C048B7D22EC62DA300A36538 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7D12EC62DA300A36538 /* GoogleSignIn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 			membershipExceptions = (
 				"GoogleService-Info-Dev.plist",
 				"GoogleService-Info-Prod.plist",
+				Info.plist,
 			);
 			target = C0D1672B2EBB9E8600C9307F /* ZELLA */;
 		};
@@ -48,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0176BE12EBCE2170082C870 /* FirebaseMessaging in Frameworks */,
+				C048B7D22EC62DA300A36538 /* GoogleSignIn in Frameworks */,
 				C0176BDF2EBCE2170082C870 /* FirebaseFunctions in Frameworks */,
 				C048B7B62EC380FD00A36538 /* GoogleSignInSwift in Frameworks */,
 				C0176BDB2EBCE2170082C870 /* FirebaseAuth in Frameworks */,
@@ -104,6 +107,7 @@
 				C0176BE22EBCE2170082C870 /* FirebaseStorage */,
 				C0176BE52EBCE2480082C870 /* StripePaymentSheet */,
 				C048B7B52EC380FD00A36538 /* GoogleSignInSwift */,
+				C048B7D12EC62DA300A36538 /* GoogleSignIn */,
 			);
 			productName = ZELLA;
 			productReference = C0D1672C2EBB9E8600C9307F /* ZELLA.app */;
@@ -324,6 +328,7 @@
 				DEVELOPMENT_TEAM = 45C3927649;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZELLA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -357,6 +362,7 @@
 				DEVELOPMENT_TEAM = 45C3927649;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZELLA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -465,6 +471,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C048B7B42EC380FD00A36538 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		C048B7D12EC62DA300A36538 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C048B7B42EC380FD00A36538 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

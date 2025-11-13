@@ -67,8 +67,27 @@ class SignInViewModel {
     func signInWithFacebook() {
         errorMessage = AppString.facebookComingSoon
     }
-    
+
+    // MARK: - Google Sign In
     func signInWithGoogle() {
-        errorMessage = AppString.googleComingSoon
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let rootViewController = windowScene.windows.first?.rootViewController
+        else {
+            errorMessage = "Unable to get root view controller"
+            return
+        }
+
+        Task {
+            isLoading = true
+            defer { isLoading = false }
+
+            do {
+                try await authService.signInWithGoogle(presentingViewController: rootViewController)
+                Logger.log("🟢 Google sign in successful")
+            } catch {
+                errorMessage = error.localizedDescription
+                Logger.log("🔴 Google sign in error: \(error)")
+            }
+        }
     }
 }

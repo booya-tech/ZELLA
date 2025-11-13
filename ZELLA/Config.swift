@@ -8,9 +8,7 @@
 import Foundation
 
 struct Config {
-    
     // MARK: - Environment Detection
-    
     #if DEBUG
     static let environment = "Development"
     static let isDevelopment = true
@@ -20,7 +18,6 @@ struct Config {
     #endif
     
     // MARK: - Stripe Configuration
-    
     /// Stripe Publishable Key (safe to include in client app)
     static var stripePublishableKey: String {
         #if DEBUG
@@ -33,7 +30,6 @@ struct Config {
     }
     
     // MARK: - Firebase Cloud Functions
-    
     /// Base URL for Firebase Cloud Functions
     static var cloudFunctionBaseURL: String {
         #if DEBUG
@@ -45,7 +41,14 @@ struct Config {
         #endif
     }
     
-    // MARK: - Helper Methods
+    // MARK: - Google Sign-In
+    static var googleClientID: String {
+        #if DEBUG
+        return "116151259693-d885c0997o163jkp1iicht1kulrsn6ib.apps.googleusercontent.com"
+        #else
+        return "610693088597-1d0ni0rvde14tuf7enjustrvh29a2s1d.apps.googleusercontent.com"
+        #endif
+    }
     
     /// Print current environment on app launch (for debugging)
     static func printEnvironment() {
@@ -53,5 +56,6 @@ struct Config {
         print("🔧 Bundle ID: \(Bundle.main.bundleIdentifier ?? "Unknown")")
         print("🔧 Stripe Key: \(stripePublishableKey.prefix(20))...")
         print("🔧 Functions URL: \(cloudFunctionBaseURL)")
+        print("🔧 Google Client ID: \(googleClientID.prefix(20))...")
     }
 }
