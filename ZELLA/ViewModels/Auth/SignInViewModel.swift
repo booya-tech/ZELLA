@@ -7,6 +7,7 @@
 import Foundation
 import AuthenticationServices
 import Observation
+import UIKit
 
 @Observable
 class SignInViewModel {
@@ -63,9 +64,27 @@ class SignInViewModel {
         return authService.startSignInWithAppleFlow()
     }
     
-    // MARK: - Social Sign In (Placeholders)
+    // MARK: - Facebook Sign In
     func signInWithFacebook() {
-        errorMessage = AppString.facebookComingSoon
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let rootViewController = windowScene.windows.first?.rootViewController
+        else {
+            errorMessage = "Unable to get root view controller"
+            return
+        }
+
+        Task {
+            isLoading = true
+            defer { isLoading = false }
+
+            do {
+                try await authService.signInWithFacebook(presentingViewController: rootViewController)
+                Logger.log("🟢 Facebook sign in successful")
+            } catch {
+                errorMessage = error.localizedDescription
+                Logger.log("🔴 Facebook sign in error: \(error)")
+            }
+        }
     }
 
     // MARK: - Google Sign In

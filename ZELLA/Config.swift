@@ -50,6 +50,12 @@ struct Config {
         #endif
     }
     
+    // MARK: - Facebook Sign-In
+    static var facebookAppID: String {
+        // Same App ID for both Dev and Prod
+        return "763019453516238"
+    }
+    
     /// Print current environment on app launch (for debugging)
     static func printEnvironment() {
         print("🔧 ZELLA Environment: \(environment)")
@@ -57,5 +63,6 @@ struct Config {
         print("🔧 Stripe Key: \(stripePublishableKey.prefix(20))...")
         print("🔧 Functions URL: \(cloudFunctionBaseURL)")
         print("🔧 Google Client ID: \(googleClientID.prefix(20))...")
+        print("🔧 Facebook App ID: \(facebookAppID)")
     }
 }

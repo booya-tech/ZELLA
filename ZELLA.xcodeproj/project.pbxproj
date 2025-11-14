@@ -15,6 +15,8 @@
 		C0176BE62EBCE2480082C870 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C0176BE52EBCE2480082C870 /* StripePaymentSheet */; };
 		C048B7B62EC380FD00A36538 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7B52EC380FD00A36538 /* GoogleSignInSwift */; };
 		C048B7D22EC62DA300A36538 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7D12EC62DA300A36538 /* GoogleSignIn */; };
+		C048B7D52EC637AE00A36538 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7D42EC637AE00A36538 /* FacebookCore */; };
+		C048B7D72EC637AE00A36538 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = C048B7D62EC637AE00A36538 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C048B7D72EC637AE00A36538 /* FacebookLogin in Frameworks */,
 				C0176BE12EBCE2170082C870 /* FirebaseMessaging in Frameworks */,
 				C048B7D22EC62DA300A36538 /* GoogleSignIn in Frameworks */,
 				C0176BDF2EBCE2170082C870 /* FirebaseFunctions in Frameworks */,
@@ -56,6 +59,7 @@
 				C0176BDB2EBCE2170082C870 /* FirebaseAuth in Frameworks */,
 				C0176BE32EBCE2170082C870 /* FirebaseStorage in Frameworks */,
 				C0176BE62EBCE2480082C870 /* StripePaymentSheet in Frameworks */,
+				C048B7D52EC637AE00A36538 /* FacebookCore in Frameworks */,
 				C0176BDD2EBCE2170082C870 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,6 +112,8 @@
 				C0176BE52EBCE2480082C870 /* StripePaymentSheet */,
 				C048B7B52EC380FD00A36538 /* GoogleSignInSwift */,
 				C048B7D12EC62DA300A36538 /* GoogleSignIn */,
+				C048B7D42EC637AE00A36538 /* FacebookCore */,
+				C048B7D62EC637AE00A36538 /* FacebookLogin */,
 			);
 			productName = ZELLA;
 			productReference = C0D1672C2EBB9E8600C9307F /* ZELLA.app */;
@@ -141,6 +147,7 @@
 				C0176BD92EBCE2170082C870 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C0176BE42EBCE2480082C870 /* XCRemoteSwiftPackageReference "stripe-ios" */,
 				C048B7B42EC380FD00A36538 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				C048B7D32EC637AE00A36538 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C0D1672D2EBB9E8600C9307F /* Products */;
@@ -434,6 +441,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		C048B7D32EC637AE00A36538 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -476,6 +491,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C048B7B42EC380FD00A36538 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		C048B7D42EC637AE00A36538 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C048B7D32EC637AE00A36538 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		C048B7D62EC637AE00A36538 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C048B7D32EC637AE00A36538 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

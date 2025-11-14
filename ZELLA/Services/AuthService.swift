@@ -12,6 +12,8 @@ import AuthenticationServices
 import Observation
 import FirebaseFunctions
 import GoogleSignIn
+import FacebookLogin
+import FacebookCore
 import FirebaseCore
 
 @Observable
@@ -453,6 +455,108 @@ class AuthService {
                 emailVerified: true
             )
 
+            try userRef.setData(from: newUser)
+            self.currentUser = newUser
+            self.isAuthenticated = true
+            Logger.log("🟢 New user created: \(newUser.username)")
+        } else {
+            fetchUserData(uid: authResult.user.uid)
+        }
+    }
+    
+    // MARK: - Sign in with Facebook
+    func signInWithFacebook(presentingViewController: UIViewController) async throws {
+        // Request Facebook login using continuation to bridge completion handler to async/await
+        let loginResult = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<LoginManagerLoginResult, Error>) in
+            let loginManager = LoginManager()
+            loginManager.logIn(permissions: ["public_profile", "email"], from: presentingViewController) { result, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                guard let result = result else {
+                    continuation.resume(throwing: NSError(
+                        domain: "AuthService",
+                        code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "Facebook login was cancelled or failed"]
+                    ))
+                    return
+                }
+                
+                if result.isCancelled {
+                    continuation.resume(throwing: NSError(
+                        domain: "AuthService",
+                        code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "Facebook login was cancelled"]
+                    ))
+                    return
+                }
+                
+                continuation.resume(returning: result)
+            }
+        }
+        
+        guard let token = loginResult.token else {
+            throw NSError(
+                domain: "AuthService",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Facebook login was cancelled or failed"]
+            )
+        }
+        
+        // Get access token string
+        let accessToken = token.tokenString
+        
+        // Create Firebase credential
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+        
+        // Sign in with Firebase
+        let authResult = try await Auth.auth().signIn(with: credential)
+        Logger.log("🟢 Firebase sign in successful: \(authResult.user.uid)")
+        
+        self.currentUserID = authResult.user.uid
+        
+        // Get user profile from Facebook Graph API
+        var username = "User"
+        var profileImageURL: String? = nil
+        
+        let graphData = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[String: Any]?, Error>) in
+            let graphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id,name,picture.type(large)"])
+            graphRequest.start { _, result, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: result as? [String: Any])
+                }
+            }
+        }
+        
+        if let dict = graphData {
+            username = dict["name"] as? String ?? "User"
+            if let picture = dict["picture"] as? [String: Any],
+               let pictureData = picture["data"] as? [String: Any],
+               let urlString = pictureData["url"] as? String {
+                profileImageURL = urlString
+            }
+        }
+        
+        // Check if this is a new user
+        let userRef = db.collection("users").document(authResult.user.uid)
+        let userDoc = try await userRef.getDocument()
+        
+        if !userDoc.exists {
+            // Create new user document
+            let newUser = User(
+                id: authResult.user.uid,
+                username: username,
+                profileImageURL: profileImageURL,
+                joinedDate: Timestamp(date: Date()),
+                isVerifiedSeller: false,
+                stripeConnectID: nil,
+                emailVerified: true // Facebook emails are pre-verified
+            )
+            
             try userRef.setData(from: newUser)
             self.currentUser = newUser
             self.isAuthenticated = true
