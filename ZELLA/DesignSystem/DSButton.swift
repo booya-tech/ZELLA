@@ -41,22 +41,29 @@ struct DSSocialButton: View {
     let iconType: IconType
     let action: () -> Void
     
-    enum IconType {
+    enum IconType: Equatable {
         case system
         case image
+        case fontAwesome(FontAwesomeIcon.FontAwesomeStyle)
     }
     
     var body: some View {
         Button(action: action) {
             HStack {
                 Spacer()
-                if iconType == .system {
-                    Image(systemName: icon)
-                        .font(.system(size: 16))
-                } else {
-                    Image(icon)
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                
+                Group {
+                    switch iconType {
+                    case .system:
+                        Image(systemName: icon)
+                            .font(.system(size: 16))
+                    case .image:
+                        Image(icon)
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    case .fontAwesome(let style):
+                        FontAwesomeIcon(icon, style: style, size: 16)
+                    }
                 }
                 
                 Text(title)
