@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Font Awesome 7 Brands-Regular-400.otf</string>
-		<string>Font Awesome 7 Free-Regular-400.otf</string>
-		<string>Font Awesome 7 Free-Solid-900.otf</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~iphone</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>FacebookClientToken</key>
-	<string>bcb6b35810188c975f841cae4782ce88</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -29,6 +17,8 @@
 	</array>
 	<key>FacebookAppID</key>
 	<string>763019453516238</string>
+	<key>FacebookClientToken</key>
+	<string>bcb6b35810188c975f841cae4782ce88</string>
 	<key>FacebookDisplayName</key>
 	<string>ZELLA</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -37,6 +27,17 @@
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Font Awesome 7 Brands-Regular-400.otf</string>
+		<string>Font Awesome 7 Free-Regular-400.otf</string>
+		<string>Font Awesome 7 Free-Solid-900.otf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-SemiBold.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-ExtraBold.ttf</string>
 	</array>
 </dict>
 </plist>
