@@ -206,6 +206,8 @@
 /* Begin XCBuildConfiguration section */
 		C0D167352EBB9E8900C9307F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C0D1672E2EBB9E8600C9307F /* ZELLA */;
+			baseConfigurationReferenceRelativePath = Config/Config.Dev.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -270,6 +272,8 @@
 		};
 		C0D167362EBB9E8900C9307F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C0D1672E2EBB9E8600C9307F /* ZELLA */;
+			baseConfigurationReferenceRelativePath = Config/Config.Prod.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

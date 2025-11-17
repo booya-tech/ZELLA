@@ -6,3 +6,11 @@ ZELLA.xcodeproj/project.xcworkspace/xcuserdata/boopannachai.xcuserdatad/UserInte
 functions/src/config.ts
 
 firepit-log.txt
+
+ZELLA/GoogleService-Info-*.plist
+ZELLA/GoogleService-Info-Dev.plist
+ZELLA/GoogleService-Info-Prod.plist
+
+# xcconfig files with secrets
+Config.Dev.xcconfig
+Config.Prod.xcconfig
