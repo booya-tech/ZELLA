@@ -41,6 +41,7 @@ enum FontAwesome {
         static let settings = "\u{f013}"
         static let arrowRight = "\u{f061}"
         static let arrowLeft = "\u{f060}"
+        static let arrowsRotate = "\u{f021}"
         
         // Brand icons
         static let facebook = "\u{f09a}"
@@ -79,5 +80,21 @@ struct FontAwesomeIcon: View {
         Text(icon)
             .font(.custom(style.fontName, size: size))
             .fixedSize()
+    }
+}
+
+extension FontAwesome {
+    /// Create a UIImage from Font Awesome icon for TabView
+    static func image(_ icon: String, size: CGFloat = 20, style: String = FontAwesome.FontName.solid) -> UIImage {
+        let font = UIFont(name: style, size: size) ?? UIFont.systemFont(ofSize: size)
+        let attributes = [NSAttributedString.Key.font: font]
+        let size = (icon as NSString).size(withAttributes: attributes)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        icon.draw(at: .zero, withAttributes: attributes)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image ?? UIImage()
     }
 }

@@ -13,32 +13,42 @@ struct MainTabView: View {
             // MARK: 1. Home
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "house")
+                    Label {
+                        Text("Home")
+                    } icon: {
+                        Image(uiImage: FontAwesome.image(FontAwesome.Icon.home, size: 16, style: FontAwesome.FontName.regular))
+                    }
                 }
             
             // MARK: 2. Swipe
             SwipeView()
                 .tabItem {
-                    Label("Swipe", systemImage: "flame")
+                    Label {
+                        Text("Swipe")
+                    } icon: {
+                        Image(uiImage: FontAwesome.image(FontAwesome.Icon.arrowsRotate, size: 16, style: FontAwesome.FontName.solid))
+                    }
                 }
             
             // MARK: 3. Sell
             SellView()
                 .tabItem {
-                    Label("Sell", systemImage: "plus.circle")
+                    Label {
+                        Text("Sell")
+                    } icon: {
+                        Image(uiImage: FontAwesome.image(FontAwesome.Icon.plus, size: 16, style: FontAwesome.FontName.solid))
+                    }
                 }
             
-            // MARK: 4. Chat
-            ChatListView()
-                .tabItem {
-                    Label("Chat", systemImage: "message")
-                }
-            
-            // MARK: 5. Profile
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
+            // MARK: 4. Profile
+             ProfileView()
+                 .tabItem {
+                     Label {
+                         Text("Profile")
+                     } icon: {
+                         Image(uiImage: FontAwesome.image(FontAwesome.Icon.user, size: 16, style: FontAwesome.FontName.regular))
+                     }
+                 }
         }
         .tint(.black)
     }
