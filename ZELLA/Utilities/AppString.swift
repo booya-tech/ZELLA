@@ -74,6 +74,18 @@ enum AppString {
     static let googleComingSoon = "Google sign in coming soon!"
     static let forgotPasswordComingSoon = "Password reset functionality coming soon!"
     
+    // MARK: - Profile
+    static let myAccount = "MY ACCOUNT"
+    static let signInOrRegister = "Sign In or Register"
+    static let myProfile = "My Profile"
+    static let mySizes = "My Sizes"
+    static let myOrders = "My Orders"
+    static let myAddresses = "My Addresses"
+    static let notifications = "Notifications"
+    static let helpCenter = "Help Center"
+    static let signOut = "Sign Out"
+    static let signOutConfirmation = "Are you sure you want to sign out?"
+    
     // MARK: - Common
     static let ok = "OK"
     static let cancel = "Cancel"
