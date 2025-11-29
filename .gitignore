@@ -14,3 +14,4 @@ ZELLA/GoogleService-Info-Prod.plist
 # xcconfig files with secrets
 Config.Dev.xcconfig
 Config.Prod.xcconfig
+ZELLA.xcodeproj/xcuserdata/boopannachai.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

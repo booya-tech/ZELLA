@@ -85,6 +85,28 @@ enum AppString {
     static let helpCenter = "Help Center"
     static let signOut = "Sign Out"
     static let signOutConfirmation = "Are you sure you want to sign out?"
+
+    // MARK: - My Sizes
+    static let topSize = "Tops"
+    static let bottomSize = "Bottoms"
+    static let shoeSize = "Shoes"
+    static let sizingSystem = "Sizing System"
+    static let international = "International"
+    static let thai = "Thai"
+    static let selectTopSize = "Select top size"
+    static let selectBottomSize = "Select bottom size"
+    static let selectShoeSize = "Select shoe size"
+    static let clear = "Clear"
+    static let clearAll = "Clear All"
+    static let save = "Save"
+    static let sizesSavedSuccessfully = "Sizes saved successfully!"
+    static let loadingSizes = "Loading your sizes..."
+    static let failedToLoadSizes = "Failed to load your sizes"
+    static let failedToSaveSizes = "Failed to save sizes"
+    static let mustBeSignedIn = "You must be signed in to save sizes"
+    static let mySizesDescriptionSectionTitle = "Set your preferred sizes to help sellers find items that fit you perfectly."
+    static let sizingSystemSectionTitle = "Sizing System"
+    static let mySizesLoadingView = "Loading your sizes..."
     
     // MARK: - Common
     static let ok = "OK"

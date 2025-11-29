@@ -83,8 +83,9 @@ struct EmailSignUpView: View {
     }
     
     private var nextButton: some View {
-        DSPrimaryButton(
+        DSPrimaryButton (
             title: AppString.next,
+            type: .normal,
             action: { Task {
                 if await viewModel.signUp() {
                     showVerification = true

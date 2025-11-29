@@ -138,6 +138,7 @@ struct EmailVerificationView: View {
     private var confirmButton: some View {
         DSPrimaryButton(
             title: AppString.confirm,
+            type: .normal,
             action: {
                 Task {
                     let success = await viewModel.confirmCode()

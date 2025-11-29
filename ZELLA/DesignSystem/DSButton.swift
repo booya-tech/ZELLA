@@ -10,25 +10,48 @@ import SwiftUI
 // MARK: - Primary Button
 struct DSPrimaryButton: View {
     let title: String
+    let type: DSButtonType
     let action: () -> Void
     var isLoading: Bool = false
     
+    enum DSButtonType {
+        case normal
+        case destructive
+    }
+    
     var body: some View {
         Button(action: action) {
-            HStack {
-                if isLoading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                } else {
-                    Text(title)
-                        .fontWeight(.semibold)
+            if type == .normal {
+                HStack {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    } else {
+                        Text(title)
+                            .fontWeight(.semibold)
+                    }
                 }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(Color.black)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            } else if type == .destructive {
+                HStack {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    } else {
+                        Text(title)
+                            .fontWeight(.semibold)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .foregroundStyle(.red)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
-            .background(Color.black)
-            .foregroundColor(.white)
-            .cornerRadius(4)
         }
         .disabled(isLoading)
     }

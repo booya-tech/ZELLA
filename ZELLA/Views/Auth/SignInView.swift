@@ -65,6 +65,7 @@ struct SignInView: View {
             
             DSPrimaryButton(
                 title: AppString.signIn,
+                type: .normal,
                 action: { Task { _ = await viewModel.signInWithEmail() } },
                 isLoading: viewModel.isLoading
             )
