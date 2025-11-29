@@ -77,13 +77,13 @@ enum AppString {
     // MARK: - Profile
     static let myAccount = "MY ACCOUNT"
     static let signInOrRegister = "Sign In or Register"
-    static let myProfile = "My Profile"
-    static let mySizes = "My Sizes"
-    static let myOrders = "My Orders"
-    static let myAddresses = "My Addresses"
-    static let notifications = "Notifications"
-    static let helpCenter = "Help Center"
-    static let signOut = "Sign Out"
+    static let myProfile = "MY PROFILE"
+    static let mySizes = "MY SIZES"
+    static let myOrders = "MY ORDERS"
+    static let myAddresses = "MY ADDRESSES"
+    static let notifications = "NOTIFICATIONS"
+    static let helpCenter = "HELP CENTER"
+    static let signOut = "SIGN OUT"
     static let signOutConfirmation = "Are you sure you want to sign out?"
 
     // MARK: - My Sizes
@@ -99,6 +99,7 @@ enum AppString {
     static let clear = "Clear"
     static let clearAll = "Clear All"
     static let save = "Save"
+    static let sizeRequired = "This field is required"
     static let sizesSavedSuccessfully = "Sizes saved successfully!"
     static let loadingSizes = "Loading your sizes..."
     static let failedToLoadSizes = "Failed to load your sizes"

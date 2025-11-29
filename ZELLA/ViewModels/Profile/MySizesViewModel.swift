@@ -20,6 +20,11 @@ class MySizesViewModel {
     var errorMessage: String?
     var showError: Bool = false
     var showSuccessMessage: Bool = false
+    
+    // Validation errors
+    var topSizeError: String?
+    var bottomSizeError: String?
+    var shoeSizeError: String?
 
     // MARK: - Dependencies
     private let authService: AuthService
@@ -58,6 +63,10 @@ class MySizesViewModel {
         return selectedTopSize != nil || selectedBottomSize != nil || selectedShoeSize != nil
     }
 
+    var isSelectedAllSizes: Bool {
+        return selectedTopSize != nil && selectedBottomSize != nil && selectedShoeSize != nil
+    }
+
     // MARK: - Methods
     
     /// Loads user's saved size preferences
@@ -90,6 +99,36 @@ class MySizesViewModel {
         }
     }
 
+    /// Validates that all size fields are selected
+    func validateSizes() -> Bool {
+        var isValid = true
+        
+        // Clear previous errors
+        topSizeError = nil
+        bottomSizeError = nil
+        shoeSizeError = nil
+        
+        // Validate top size
+        if selectedTopSize == nil {
+            topSizeError = AppString.sizeRequired
+            isValid = false
+        }
+        
+        // Validate bottom size
+        if selectedBottomSize == nil {
+            bottomSizeError = AppString.sizeRequired
+            isValid = false
+        }
+        
+        // Validate shoe size
+        if selectedShoeSize == nil {
+            shoeSizeError = AppString.sizeRequired
+            isValid = false
+        }
+        
+        return isValid
+    }
+    
     /// Saves user's size preferences to Firestore
     func saveUserSizes() async {
         guard let uid = authService.currentUserID else {
@@ -97,6 +136,12 @@ class MySizesViewModel {
                 self.errorMessage = "You must be signed in to save sizes"
                 self.showError = true
             }
+            return
+        }
+        
+        // Validate before saving
+        guard validateSizes() else {
+            Logger.log("⚠️ Validation failed: Please select all sizes")
             return
         }
         

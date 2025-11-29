@@ -26,3 +26,43 @@ struct DSDivider: View {
         }
     }
 }
+
+// MARK: - Section Divider (with padding)
+struct DSSectionDivider: View {
+    var padding: CGFloat = 16
+    var color: Color = Color(.systemGray4)
+    var thickness: CGFloat = 1
+    
+    var body: some View {
+        Rectangle()
+            .fill(color)
+            .frame(height: thickness)
+            .padding(.horizontal, padding)
+    }
+}
+
+// MARK: - Thick Divider (for major sections)
+struct DSThickDivider: View {
+    var color: Color = Color(.systemGray5)
+    var height: CGFloat = 4
+    
+    var body: some View {
+        Rectangle()
+            .fill(color)
+            .frame(height: height)
+    }
+}
+
+#Preview {
+    VStack(spacing: 20) {
+        Text("Text Divider")
+        DSDivider(text: "OR")
+        
+        Text("Section Divider")
+        DSSectionDivider()
+        
+        Text("Thick Divider")
+        DSThickDivider()
+    }
+    .padding()
+}

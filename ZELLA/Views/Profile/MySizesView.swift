@@ -107,7 +107,8 @@ struct MySizesView: View {
                 title: AppString.topSize,
                 selectedSize: $viewModel.selectedTopSize,
                 availableSizes: viewModel.availableTopSizes,
-                placeholder: AppString.selectTopSize
+                placeholder: AppString.selectTopSize,
+                errorMessage: viewModel.topSizeError
             )
             
             Divider()
@@ -117,7 +118,8 @@ struct MySizesView: View {
                 title: AppString.bottomSize,
                 selectedSize: $viewModel.selectedBottomSize,
                 availableSizes: viewModel.availableBottomSizes,
-                placeholder: AppString.selectBottomSize
+                placeholder: AppString.selectBottomSize,
+                errorMessage: viewModel.bottomSizeError
             )
             
             Divider()
@@ -127,7 +129,8 @@ struct MySizesView: View {
                 title: AppString.shoeSize,
                 selectedSize: $viewModel.selectedShoeSize,
                 availableSizes: viewModel.availableShoeSizes,
-                placeholder: AppString.selectShoeSize
+                placeholder: AppString.selectShoeSize,
+                errorMessage: viewModel.shoeSizeError
             )
         }
     }
@@ -137,40 +140,16 @@ struct MySizesView: View {
         title: String,
         selectedSize: Binding<String?>,
         availableSizes: [String],
-        placeholder: String
+        placeholder: String,
+        errorMessage: String?
     ) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.system(size: 16, weight: .semibold))
-            
-            Menu {
-                Button(AppString.clear) {
-                    selectedSize.wrappedValue = nil
-                }
-                
-                Divider()
-                
-                ForEach(availableSizes, id: \.self) { size in
-                    Button(size) {
-                        selectedSize.wrappedValue = size
-                    }
-                }
-            } label: {
-                HStack {
-                    Text(selectedSize.wrappedValue ?? placeholder)
-                        .foregroundStyle(selectedSize.wrappedValue == nil ? .secondary : .primary)
-                    Spacer()
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 14))
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 12)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        DSDropdownMenu(
+            title: title,
+            placeholder: placeholder,
+            selectedValue: selectedSize,
+            options: availableSizes,
+            errorMessage: errorMessage
+        )
     }
     
     // MARK: - Save Button Section
@@ -187,11 +166,11 @@ struct MySizesView: View {
                 .opacity(viewModel.hasChanges ? 1.0 : 0.5)
                 
                 // Save Button
-                DSPrimaryButton(title: AppString.save, type: .normal, isLoading: viewModel.isSaving) {
+                DSPrimaryButton(title: AppString.save, type: .normal, action: {
                     Task {
                         await viewModel.saveUserSizes()
                     }
-                }
+                }, isLoading: viewModel.isSaving)
                 .disabled(viewModel.isSaving)
             }
             .padding(.horizontal, 16)
