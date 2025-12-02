@@ -63,10 +63,6 @@ class MySizesViewModel {
         return selectedTopSize != nil || selectedBottomSize != nil || selectedShoeSize != nil
     }
 
-    var isSelectedAllSizes: Bool {
-        return selectedTopSize != nil && selectedBottomSize != nil && selectedShoeSize != nil
-    }
-
     // MARK: - Methods
     
     /// Loads user's saved size preferences
