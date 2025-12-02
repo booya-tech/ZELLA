@@ -46,7 +46,7 @@ enum ItemCategory: String, Codable, CaseIterable {
     case all = "All"
     case top = "Tops"
     case pants = "Pants"
-    case outerewear = "Outerwear"
+    case outerwear = "Outerwear"
     case dresses = "Dresses & Skirts"
     case accessories = "Accessories"
     case bags = "Bags"
