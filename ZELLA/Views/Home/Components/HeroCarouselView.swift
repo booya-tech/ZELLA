@@ -11,6 +11,7 @@ struct HeroCarouselView: View {
     let banners: [HeroBanner]
     @Binding var currentIndex: Int
     @State private var timer: Timer?
+    let bannerHeight: CGFloat = 500
 //    @StateObject var viewModel = HeroCarouselViewModel()
     
     var body: some View {
@@ -22,12 +23,12 @@ struct HeroCarouselView: View {
                         Image(imageName)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 200)
+                            .frame(height: bannerHeight)
                             .clipped()
                     } else {
                         Rectangle()
                             .fill(Color(.systemGray5))
-                            .frame(height: 280)
+                            .frame(height: bannerHeight)
                             .overlay {
                                 Text("Banner is not available")
                             }
@@ -63,9 +64,9 @@ struct HeroCarouselView: View {
 
 #Preview {
     let mockBanners = [
-        HeroBanner(id: "1", imageURL: nil, localImageName: nil),
-        HeroBanner(id: "2", imageURL: nil, localImageName: nil),
-        HeroBanner(id: "3", imageURL: nil, localImageName: nil),
+        HeroBanner(id: "1", imageURL: nil, localImageName: "mock_hero_01"),
+        HeroBanner(id: "2", imageURL: nil, localImageName: "mock_hero_02"),
+        HeroBanner(id: "3", imageURL: nil, localImageName: "mock_hero_03"),
     ]
     
     HeroCarouselView(banners: mockBanners, currentIndex: .constant(0))

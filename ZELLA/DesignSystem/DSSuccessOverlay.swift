@@ -15,7 +15,7 @@ struct DSSuccessOverlay: View {
                 FontAwesomeIcon(FontAwesome.Icon.check, size: 12)
                     .foregroundStyle(.white)
                 Text(AppString.sizesSavedSuccessfully)
-                    .font(.roboto(.body2Regular))
+                    .font(.syne(.body2Regular))
                     .foregroundStyle(.white)
             }
             .padding(.horizontal, Constants.mainPadding)

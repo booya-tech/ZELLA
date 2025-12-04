@@ -30,8 +30,6 @@ struct HorizontalSectionView: View {
                 .padding(.horizontal, Constants.mainPadding)
             }
         }    
-
-        
     }
 }
 

@@ -33,11 +33,16 @@
 		<string>Font Awesome 7 Brands-Regular-400.otf</string>
 		<string>Font Awesome 7 Free-Regular-400.otf</string>
 		<string>Font Awesome 7 Free-Solid-900.otf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string>Roboto-Medium.ttf</string>
-		<string>Roboto-SemiBold.ttf</string>
+		<string>Syne-Bold.ttf</string>
+		<string>Syne-ExtraBold.ttf</string>
+		<string>Syne-Medium.ttf</string>
+		<string>Syne-Regular.ttf</string>
+		<string>Syne-SemiBold.ttf</string>
 		<string>Roboto-Bold.ttf</string>
 		<string>Roboto-ExtraBold.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

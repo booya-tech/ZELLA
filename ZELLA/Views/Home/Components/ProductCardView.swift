@@ -33,7 +33,7 @@ struct ProductCardView: View {
                 // Condition Badge
                 if item.condition == .newWithTags {
                     Text("NEW")
-                        .font(.roboto(.smallRegular))
+                        .font(.syne(.smallRegular))
                         .foregroundStyle(AppColors.primaryWhite)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
@@ -48,19 +48,19 @@ struct ProductCardView: View {
             VStack(alignment: .leading) {
                 // Brand
                 Text(item.brand.uppercased())
-                    .font(.system(size: 10, weight: .medium))
+                    .font(.roboto(.smallMedium))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                 
                 // Title
                 Text(item.title)
-                    .font(.system(size: 12))
+                    .font(.roboto(.smallRegular))
                     .foregroundStyle(.primary)
                     .lineLimit(2)
                 
                 // Price
                 Text("฿\(String(format: "%.0f", item.price))")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.roboto(.smallMedium))
                     .foregroundStyle(.black)
             }
         }
@@ -72,7 +72,7 @@ struct CompactProductCardView: View {
     let width: CGFloat = 140
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Constants.secondaryPadding) {
             // Product Image
             ZStack(alignment: .topTrailing) {
                 if let imageName = item.localImageName {
@@ -92,7 +92,7 @@ struct CompactProductCardView: View {
                 // Condition Badge
                 if item.condition == .newWithTags {
                     Text("NEW")
-                        .font(.roboto(.smallBold))
+                        .font(.syne(.smallBold))
                         .foregroundStyle(AppColors.primaryWhite)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
@@ -107,19 +107,19 @@ struct CompactProductCardView: View {
             VStack(alignment: .leading) {
                 // Brand
                 Text(item.brand.uppercased())
-                    .font(.roboto(.smallMedium))
+                    .font(.syne(.smallMedium))
                     .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(1)
                 
                 // Title
                 Text(item.title)
-                    .font(.roboto(.body2Medium))
+                    .font(.syne(.body2Medium))
                     .foregroundStyle(.primary)
                     .lineLimit(2)
                 
                 // Price
                 Text("฿\(String(format: "%.0f", item.price))")
-                    .font(.roboto(.body2Medium))
+                    .font(.syne(.body2Medium))
                     .foregroundStyle(.black)
             }
             .frame(width: width)

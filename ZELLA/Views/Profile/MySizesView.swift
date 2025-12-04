@@ -27,7 +27,7 @@ struct MySizesView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(AppString.mySizes)
-                    .font(.roboto(.h4Bold))
+                    .font(.syne(.h4Bold))
             }
         }
         .alert(AppString.errorTitle, isPresented: $viewModel.showError) {
@@ -73,10 +73,7 @@ struct MySizesView: View {
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: Constants.secondaryPadding) {
             Text(AppString.mySizesDescriptionSectionTitle)
-                .font(.system(size: 14))
-                .foregroundStyle(.secondary)
-            Text(AppString.mySizesDescriptionSectionTitle)
-                .font(.roboto(.body2Regular))
+                .font(.syne(.body2Regular))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -187,7 +184,7 @@ struct MySizesView: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle())
             Text(AppString.mySizesLoadingView)
-                .font(.roboto(.body2Regular))
+                .font(.syne(.body2Regular))
                 .foregroundStyle(.secondary)
                 .padding(.top, Constants.secondaryPadding)
         }
