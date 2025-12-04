@@ -9,7 +9,11 @@ import Foundation
 
 struct Constants {
     // Padding
-    static let sectionPadding: CGFloat = 16
-    static let itemPadding: CGFloat = 8
-    static let outerPadding: CGFloat = 6
+    static let mainPadding: CGFloat = 16
+    static let secondaryPadding: CGFloat = 8
+    static let thirdPadding: CGFloat = 6
+    
+    // Radius
+    static let buttonRadius: CGFloat = 8
+    static let shadowButtonRadius: CGFloat = 4
 }

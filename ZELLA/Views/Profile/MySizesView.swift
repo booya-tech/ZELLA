@@ -27,7 +27,7 @@ struct MySizesView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(AppString.mySizes)
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.roboto(.h4Bold))
             }
         }
         .alert(AppString.errorTitle, isPresented: $viewModel.showError) {
@@ -46,7 +46,7 @@ struct MySizesView: View {
     private var mainContent: some View {
         VStack() {
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: Constants.mainPadding) {
                     // Description
                     descriptionSection
                     
@@ -58,9 +58,8 @@ struct MySizesView: View {
                     // Size Selections
                     sizeSelectionsSection
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
-                .padding(.bottom, 100) // Space for save button
+                .padding(.horizontal, Constants.mainPadding)
+                .padding(.top, Constants.mainPadding)
             }
             
             Spacer()
@@ -72,9 +71,12 @@ struct MySizesView: View {
     
     // MARK: - Description Section
     private var descriptionSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Constants.secondaryPadding) {
             Text(AppString.mySizesDescriptionSectionTitle)
                 .font(.system(size: 14))
+                .foregroundStyle(.secondary)
+            Text(AppString.mySizesDescriptionSectionTitle)
+                .font(.roboto(.body2Regular))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -157,7 +159,7 @@ struct MySizesView: View {
         VStack(spacing: 0) {
             Divider()
             
-            HStack(spacing: 12) {
+            HStack(spacing: Constants.secondaryPadding) {
                 // Clear All Button
                 DSPrimaryButton(title: AppString.clearAll, type: .destructive) {
                     viewModel.clearAllSizes()
@@ -173,8 +175,8 @@ struct MySizesView: View {
                 }, isLoading: viewModel.isSaving)
                 .disabled(viewModel.isSaving)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, Constants.mainPadding)
+            .padding(.vertical, Constants.secondaryPadding)
             .background(Color(.systemBackground))
         }
     }
@@ -185,32 +187,33 @@ struct MySizesView: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle())
             Text(AppString.mySizesLoadingView)
-                .font(.system(size: 14))
+                .font(.roboto(.body2Regular))
                 .foregroundStyle(.secondary)
-                .padding(.top, 8)
+                .padding(.top, Constants.secondaryPadding)
         }
     }
     
     // MARK: - Success Overlay
     private var successOverlay: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(.white)
-                Text(AppString.sizesSavedSuccessfully)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.white)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(Color.green)
-            .cornerRadius(8)
-            .shadow(radius: 4)
-            .padding(.bottom, 100)
-        }
-        .transition(.move(edge: .bottom).combined(with: .opacity))
-        .animation(.spring(response: 0.3), value: viewModel.showSuccessMessage)
+//        VStack {
+//            Spacer()
+//            HStack {
+//                Image(systemName: "checkmark.circle.fill")
+//                    .foregroundStyle(.white)
+//                Text(AppString.sizesSavedSuccessfully)
+//                    .font(.system(size: 14, weight: .medium))
+//                    .foregroundStyle(.white)
+//            }
+//            .padding(.horizontal, 16)
+//            .padding(.vertical, 12)
+//            .background(Color.green)
+//            .cornerRadius(8)
+//            .shadow(radius: 4)
+//            .padding(.bottom, 100)
+//        }
+        DSSuccessOverlay()
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .animation(.spring(response: 0.3), value: viewModel.showSuccessMessage)
     }
 }
 

@@ -8,6 +8,26 @@
 import SwiftUI
 import UIKit
 
+/// Description - Example Usage
+// Text("Search")
+// FontAwesomeIcon(FontAwesome.Icon.search, size: 20)
+
+// FontAwesomeIcon(FontAwesome.Icon.heart, style: .solid, size: 24)
+//     .foregroundStyle(.red)
+
+// FontAwesomeIcon(FontAwesome.Icon.heart, style: .regular, size: 24)
+//     .foregroundStyle(.red)
+
+// FontAwesomeIcon(FontAwesome.Icon.facebook, style: .brands, size: 24)
+//     .foregroundStyle(.blue)
+
+// Button(action: { /* action */ }) {
+//     HStack {
+//         FontAwesomeIcon(FontAwesome.Icon.bagShopping, size: 18)
+//         Text("Add to Cart")
+//     }
+// }
+
 enum FontAwesome {
     // Font PostScript names (actual font names used by iOS)
     enum FontName {

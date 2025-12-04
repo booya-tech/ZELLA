@@ -57,7 +57,7 @@ struct DSDropdownMenu: View {
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(errorMessage != nil ? AppColors.error : Color.clear, lineWidth: 1)
+                        .stroke(errorMessage != nil ? AppColors.error : AppColors.primaryClear, lineWidth: 1)
                 )
             }
             .disabled(disabled)

@@ -20,14 +20,14 @@ struct HorizontalSectionView: View {
 
             // Horizontal Scroll
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: Constants.itemPadding) {
+                LazyHStack(spacing: Constants.secondaryPadding) {
                     ForEach(items) { item in
                         Button(action: { onTapItem(item) }) {
                             CompactProductCardView(item: item)
                         }
                     }
                 }
-                .padding(.horizontal, Constants.sectionPadding)
+                .padding(.horizontal, Constants.mainPadding)
             }
         }    
 

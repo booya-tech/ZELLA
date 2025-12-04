@@ -33,11 +33,11 @@ struct ProductCardView: View {
                 // Condition Badge
                 if item.condition == .newWithTags {
                     Text("NEW")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(.white)
+                        .font(.roboto(.smallRegular))
+                        .foregroundStyle(AppColors.primaryWhite)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
-                        .background(Color.black)
+                        .background(AppColors.primaryBlack)
                         .cornerRadius(3)
                         .padding(6)
                 }
@@ -85,19 +85,18 @@ struct CompactProductCardView: View {
                         .fill(Color(.systemGray5))
                         .aspectRatio(1, contentMode: .fill)
                         .overlay {
-                            Image(systemName: "photo")
-                                .foregroundStyle(.gray)
+                            FontAwesomeIcon(FontAwesome.Icon.camera)
                         }
                 }
                 
                 // Condition Badge
                 if item.condition == .newWithTags {
                     Text("NEW")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(.white)
+                        .font(.roboto(.smallBold))
+                        .foregroundStyle(AppColors.primaryWhite)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
-                        .background(Color.black)
+                        .background(AppColors.primaryBlack)
                         .cornerRadius(3)
                         .padding(6)
                 }
@@ -108,19 +107,19 @@ struct CompactProductCardView: View {
             VStack(alignment: .leading) {
                 // Brand
                 Text(item.brand.uppercased())
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.secondary)
+                    .font(.roboto(.smallMedium))
+                    .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(1)
                 
                 // Title
                 Text(item.title)
-                    .font(.system(size: 12))
+                    .font(.roboto(.body2Medium))
                     .foregroundStyle(.primary)
                     .lineLimit(2)
                 
                 // Price
                 Text("฿\(String(format: "%.0f", item.price))")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.roboto(.body2Medium))
                     .foregroundStyle(.black)
             }
             .frame(width: width)

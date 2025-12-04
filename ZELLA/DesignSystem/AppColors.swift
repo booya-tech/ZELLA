@@ -19,8 +19,9 @@ struct AppColors {
     static let whiteCloudy = Color(uiColor: whiteCloudyColor ?? .white)
     // MARK: - Semantic Colors
     // Primary
-    static let primary = Color.black
-    static let primaryForeground = Color.white
+    static let primaryBlack = Color.black
+    static let primaryWhite = Color.white
+    static let primaryClear = Color.clear
     
     // Background
     static let background = Color(.systemBackground)

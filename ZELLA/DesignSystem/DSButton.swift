@@ -33,7 +33,7 @@ struct DSPrimaryButton: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(Color.black)
+                .background(AppColors.primaryBlack)
                 .foregroundColor(.white)
                 .cornerRadius(8)
             } else if type == .destructive {
@@ -96,7 +96,7 @@ struct DSSocialButton: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 40)
-            .background(Color.white)
+            .background(AppColors.primaryWhite)
             .foregroundColor(.black)
             .cornerRadius(4)
             .overlay(
