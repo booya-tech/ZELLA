@@ -14,33 +14,20 @@ struct HorizontalSectionView: View {
     let onSeeAllTap: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading) {
             // Section Header
-            HStack {
-                Text(title)
-                    .font(.system(size: 18, weight: .semibold))
-                
-
-                Spacer()
-
-                Button(action: onSeeAllTap) {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(.black)
-                }
-            }
-            .padding(.horizontal, 16)
+            DSHeaderTextSection(title: title, onSeeAllTap: onSeeAllTap)
 
             // Horizontal Scroll
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 12) {
+                LazyHStack(spacing: Constants.itemPadding) {
                     ForEach(items) { item in
                         Button(action: { onTapItem(item) }) {
                             CompactProductCardView(item: item)
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.sectionPadding)
             }
         }    
 
