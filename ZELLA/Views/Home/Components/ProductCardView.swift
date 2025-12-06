@@ -61,7 +61,7 @@ struct ProductCardView: View {
                 // Price
                 Text("฿\(String(format: "%.0f", item.price))")
                     .font(.roboto(.smallMedium))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(AppColors.primaryBlack)
             }
         }
     }
@@ -114,7 +114,7 @@ struct CompactProductCardView: View {
                 // Title
                 Text(item.title)
                     .font(.syne(.body2Medium))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(2)
                 
                 // Price

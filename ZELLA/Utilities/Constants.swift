@@ -16,4 +16,7 @@ struct Constants {
     // Radius
     static let buttonRadius: CGFloat = 8
     static let shadowButtonRadius: CGFloat = 4
+    
+    // Section
+    static let sectionSpacing: CGFloat = 8
 }

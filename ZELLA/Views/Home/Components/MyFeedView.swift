@@ -7,12 +7,21 @@
 
 import SwiftUI
 
-struct MyFeedView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct MyFeedView: UIViewControllerRepresentable {
+    @Binding var selectedCategory: ItemCategory
+    let onProductTap: (Item) -> Void
+    
+    func makeUIViewController(context: Context) -> MyFeedCollectionViewController {
+        let controller = MyFeedCollectionViewController()
+        controller.selectedCategory = selectedCategory
+        controller.onItemTap = onProductTap
+        
+        return controller
     }
-}
-
-#Preview {
-    MyFeedView()
+    
+    func updateUIViewController(_ uiViewController: MyFeedCollectionViewController, context: Context) {
+        if uiViewController.selectedCategory != selectedCategory {
+            uiViewController.selectedCategory = selectedCategory
+        }
+    }
 }

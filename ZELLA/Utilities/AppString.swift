@@ -112,4 +112,13 @@ enum AppString {
     // MARK: - Common
     static let ok = "OK"
     static let cancel = "Cancel"
+    
+    //MARK: - Home
+    static let recentlyViewed = "Recently Viewed"
+    static let trending = "Trending"
+    static let suggestedStore = "Suggested Store"
+    static let suggestedBrand = "Suggested Brand"
+    static let myFeed = "My Feed"
+    static let seeAll = "See All"
+    static let loadingMore = "Loading more..."
 }

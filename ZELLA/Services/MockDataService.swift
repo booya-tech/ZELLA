@@ -40,12 +40,12 @@ class MockDataService {
     func getBrands() -> [Brand] {
         return [
             Brand(id: "brand1", name: "ZARA", logoURL: nil, localImageName: "brand_zara"),
-            Brand(id: "brand2", name: "CPS CHAPS", logoURL: nil, localImageName: "brand_cps"),
-            Brand(id: "brand3", name: "Jaspal", logoURL: nil, localImageName: "brand_jaspal"),
+            Brand(id: "brand2", name: "CPS CHAPS", logoURL: nil, localImageName: "brand_balenciaga"),
+            Brand(id: "brand3", name: "Jaspal", logoURL: nil, localImageName: "brand_lululemon"),
             Brand(id: "brand4", name: "CC-OO", logoURL: nil, localImageName: "brand_ccoo"),
             Brand(id: "brand5", name: "Pomelo", logoURL: nil, localImageName: "brand_pomelo"),
-            Brand(id: "brand6", name: "Mirror Mirror", logoURL: nil, localImageName: "brand_mirror"),
-            Brand(id: "brand7", name: "After You", logoURL: nil, localImageName: "brand_afteryou"),
+            Brand(id: "brand6", name: "alo", logoURL: nil, localImageName: "brand_alo"),
+            Brand(id: "brand7", name: "After You", logoURL: nil, localImageName: "brand_cartier"),
             Brand(id: "brand8", name: "H&M", logoURL: nil, localImageName: "brand_hm"),
             Brand(id: "brand9", name: "Uniqlo", logoURL: nil, localImageName: "brand_uniqlo"),
             Brand(id: "brand10", name: "COS", logoURL: nil, localImageName: "brand_cos")
@@ -113,7 +113,7 @@ class MockDataService {
                     status: .available,
                     postedDate: Timestamp(
                         date: Date().addingTimeInterval(-Double.random(in: 0...2592000))),
-                    localImageName: "black_shirt_\(String(format: "%02d", (i % 10) + 1))"
+                    localImageName: "shirt_\(String(format: "%02d", (i % 10) + 1))"
                 )
             )
         }
@@ -135,7 +135,7 @@ class MockDataService {
                     status: .available,
                     postedDate: Timestamp(
                         date: Date().addingTimeInterval(-Double.random(in: 0...2592000))),
-                    localImageName: "white_pants_\(String(format: "%02d", (i % 5) + 1))"
+                    localImageName: "pants_\(String(format: "%02d", (i % 5) + 1))"
                 )
             )
         }
@@ -157,7 +157,7 @@ class MockDataService {
                     status: .available,
                     postedDate: Timestamp(
                         date: Date().addingTimeInterval(-Double.random(in: 0...2592000))),
-                    localImageName: "black_shirt_\(String(format: "%02d", (i % 10) + 1))"
+                    localImageName: "shirt_\(String(format: "%02d", (i % 10) + 1))"
                 )
             )
         }
@@ -201,7 +201,7 @@ class MockDataService {
                     status: .available,
                     postedDate: Timestamp(
                         date: Date().addingTimeInterval(-Double.random(in: 0...2592000))),
-                    localImageName: "shoes\(String(format: "%02d", (i % 5) + 1))"
+                    localImageName: "shoes_\(String(format: "%02d", (i % 5) + 1))"
                 )
             )
         }
@@ -252,5 +252,4 @@ class MockDataService {
 
         return items.shuffled()
     }
-
 }

@@ -63,6 +63,8 @@ enum FontAwesome {
         static let arrowLeft = "\u{f060}"
         static let arrowsRotate = "\u{f021}"
         static let bagShopping = "\u{f290}"
+        static let chevronRight = "\u{f054}"
+        static let chevronLeft = "\u{f053}"
         
         // Brand icons
         static let facebook = "\u{f09a}"

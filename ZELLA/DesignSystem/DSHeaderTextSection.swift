@@ -15,18 +15,18 @@ struct DSHeaderTextSection: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.system(size: 18, weight: .semibold))
+                .font(.syne(.h2Regular))
             
 
             Spacer()
 
             Button(action: onSeeAllTap) {
-                Image(systemName: icon)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.black)
+                FontAwesomeIcon(FontAwesome.Icon.chevronRight, size: 16)
+                    .foregroundStyle(AppColors.primaryBlack)
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.vertical, Constants.thirdPadding)
+        .padding(.horizontal, Constants.mainPadding)
     }
 }
 

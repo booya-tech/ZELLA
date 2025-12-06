@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BrandLogoView: View {
     let brand: Brand
-    let size: CGFloat = 40
+    let size: CGFloat = 50
 
     var body: some View {
         VStack(spacing: Constants.secondaryPadding) {
@@ -19,8 +19,11 @@ struct BrandLogoView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size, height: size)
-                    .background(AppColors.border)
+                    .padding(.horizontal, Constants.thirdPadding)
+                    .padding(.vertical, Constants.thirdPadding)
+                    .background(AppColors.primaryWhite)
                     .cornerRadius(Constants.buttonRadius)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                     .overlay {
                         RoundedRectangle(cornerRadius: Constants.buttonRadius)
                             .stroke(AppColors.primaryWhite, lineWidth: 0.1)
@@ -42,8 +45,8 @@ struct BrandLogoView: View {
                             .stroke(AppColors.primaryWhite, lineWidth: 0.1)
                 }
             }
-        } 
-        .frame(width: size)   
+        }
+        .frame(width: size)
     }
 }
 
@@ -67,6 +70,7 @@ struct BrandSectionView: View {
                         .buttonStyle(.plain)
                     }
                 }
+                .padding(.vertical, Constants.thirdPadding)
                 .padding(.horizontal, Constants.mainPadding)
             }
         }

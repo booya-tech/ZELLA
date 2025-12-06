@@ -22,16 +22,12 @@ struct AppColors {
     static let primaryBlack = Color.black
     static let primaryWhite = Color.white
     static let primaryClear = Color.clear
+    static let primaryGrey = Color.gray
     
     // Background
     static let background = Color(.systemBackground)
     static let secondaryBackground = Color(.secondarySystemBackground)
     static let tertiaryBackground = Color(.tertiarySystemBackground)
-    
-    // Text
-    static let primaryText = Color.primary
-    static let secondaryText = Color.secondary
-    static let tertiaryText = Color(.tertiaryLabel)
     
     // Borders & Dividers
     static let border = Color(.systemGray4)

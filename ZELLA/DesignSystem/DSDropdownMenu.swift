@@ -22,7 +22,7 @@ struct DSDropdownMenu: View {
             if let title = title {
                 Text(title)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(AppColors.primaryText)
+                    .foregroundStyle(AppColors.primaryBlack)
             }
             
             // Dropdown Menu
@@ -45,11 +45,11 @@ struct DSDropdownMenu: View {
             } label: {
                 HStack {
                     Text(selectedValue ?? placeholder)
-                        .foregroundStyle(selectedValue == nil ? AppColors.secondaryText : AppColors.primaryText)
+                        .foregroundStyle(selectedValue == nil ? AppColors.primaryGrey : AppColors.primaryBlack)
                     Spacer()
                     Image(systemName: "chevron.down")
                         .font(.system(size: 14))
-                        .foregroundStyle(AppColors.secondaryText)
+                        .foregroundStyle(AppColors.primaryGrey)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 12)
