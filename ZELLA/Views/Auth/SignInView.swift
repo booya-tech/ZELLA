@@ -12,6 +12,7 @@ struct SignInView: View {
     @State private var viewModel = SignInViewModel()
     @State private var showEmailSignUp = false
     @State private var showForgotPassword = false
+    @State private var authService = AuthService.shared
     
     var body: some View {
         NavigationStack {
@@ -28,6 +29,9 @@ struct SignInView: View {
             .navigationDestination(isPresented: $showEmailSignUp) {
                 EmailSignUpView()
             }
+            .fullScreenCover(isPresented: .constant(authService.isAuthenticated), content: { 
+                HomeView()
+             })
             .alert(AppString.signInError, isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button(AppString.ok) { viewModel.errorMessage = nil }
             } message: {
@@ -66,7 +70,11 @@ struct SignInView: View {
             DSPrimaryButton(
                 title: AppString.signIn,
                 type: .normal,
-                action: { Task { _ = await viewModel.signInWithEmail() } },
+                action: {
+                    Task {
+                        let result = await viewModel.signInWithEmail()
+                    }
+                },
                 isLoading: viewModel.isLoading
             )
             

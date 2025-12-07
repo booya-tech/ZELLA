@@ -22,7 +22,7 @@ struct HeroCarouselView: View {
                     if let imageName = banner.localImageName {
                         Image(imageName)
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .aspectRatio(contentMode: .fit)
                             .frame(height: bannerHeight)
                             .clipped()
                     } else {

@@ -15,9 +15,10 @@ struct DSHeaderTextSection: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.syne(.h2Regular))
+                .font(.syne(.h3Regular))
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
-
             Spacer()
 
             Button(action: onSeeAllTap) {

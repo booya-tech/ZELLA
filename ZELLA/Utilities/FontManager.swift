@@ -231,11 +231,11 @@ public enum SyneFont: FontPreset {
 
 // MARK: - Font Extension
 extension Font {
-    static func roboto(_ preset: SyneFont) -> Font {
+    static func roboto(_ preset: RobotoFont) -> Font {
         return preset.font
     }
 
-    static func syne(_ preset: RobotoFont) -> Font {
+    static func syne(_ preset: SyneFont) -> Font {
         return preset.font
     }
 }

@@ -9,31 +9,31 @@ import SwiftUI
 
 struct BrandLogoView: View {
     let brand: Brand
-    let size: CGFloat = 50
+    let size: CGFloat = 80
 
     var body: some View {
         VStack(spacing: Constants.secondaryPadding) {
             // Brand Logo
             if let imageName = brand.localImageName {
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: size, height: size)
-                    .padding(.horizontal, Constants.thirdPadding)
-                    .padding(.vertical, Constants.thirdPadding)
-                    .background(AppColors.primaryWhite)
-                    .cornerRadius(Constants.buttonRadius)
-                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Constants.buttonRadius)
-                            .stroke(AppColors.primaryWhite, lineWidth: 0.1)
-                    }
+                ZStack {
+                    Rectangle()
+                        .fill(AppColors.primaryWhite)
+                        .frame(width: size, height: size)
+                        .cornerRadius(Constants.buttonRadius)
+                        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        // 0.7 means 30% padding around the image
+                        .frame(width: size * 0.7, height: size * 0.7)
+                }
             } else {
                 // Placeholder with brand name
                 ZStack {
                     Rectangle()
                         .fill(AppColors.primaryClear)
-                        frame(width: size, height: size)
+                        .frame(width: size, height: size)
                         .cornerRadius(Constants.secondaryPadding)
 
                     Text(brand.name.prefix(2))
@@ -46,7 +46,6 @@ struct BrandLogoView: View {
                 }
             }
         }
-        .frame(width: size)
     }
 }
 
@@ -62,8 +61,8 @@ struct BrandSectionView: View {
 
             // Horizontal Scroll
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: Constants.mainPadding) {
-                    ForEach(brands) { brand in 
+                LazyHStack(spacing: Constants.secondaryPadding) {
+                    ForEach(brands) { brand in
                         Button(action: { onTapBrand(brand) }) {
                             BrandLogoView(brand: brand)
                         }

@@ -12,18 +12,32 @@ struct HorizontalSectionView: View {
     let items: [Item]
     let onTapItem: (Item) -> Void
     let onSeeAllTap: () -> Void
+
+    // Dynamic card width based on screen size
+    private var cardWidth: CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let padding = Constants.mainPadding * 2
+        let spacing = Constants.secondaryPadding
+        /// Description
+        /// Show 2.5 cards on screen for better UX
+        /// 2.5 = 2 cards + 0.5 card spacing
+        return (screenWidth - padding - spacing * 2) / 2.5
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             // Section Header
-            DSHeaderTextSection(title: title, onSeeAllTap: onSeeAllTap)
+            DSHeaderTextSection(
+                title: title,
+                onSeeAllTap: onSeeAllTap
+            )
 
             // Horizontal Scroll
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: Constants.secondaryPadding) {
                     ForEach(items) { item in
                         Button(action: { onTapItem(item) }) {
-                            CompactProductCardView(item: item)
+                            CompactProductCardView(item: item, width: cardWidth)
                         }
                     }
                 }

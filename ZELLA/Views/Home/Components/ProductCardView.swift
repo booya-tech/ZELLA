@@ -18,7 +18,10 @@ struct ProductCardView: View {
                 if let imageName = item.localImageName {
                     Image(imageName)
                         .resizable()
-                        .aspectRatio(1, contentMode: .fill)
+                        // .aspectRatio(1, contentMode: .fill)
+                        .scaledToFit()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 150)
                         .clipped()
                 } else {
                     Rectangle()
@@ -69,16 +72,17 @@ struct ProductCardView: View {
 
 struct CompactProductCardView: View {
     let item: Item
-    let width: CGFloat = 140
+    let width: CGFloat
     
     var body: some View {
-        VStack(alignment: .leading, spacing: Constants.secondaryPadding) {
+        VStack(alignment: .leading, spacing: 8) {
             // Product Image
             ZStack(alignment: .topTrailing) {
                 if let imageName = item.localImageName {
                     Image(imageName)
                         .resizable()
-                        .aspectRatio(1, contentMode: .fill)
+                        .scaledToFill()
+                        .frame(width: width, height: width * 1.3)
                         .clipped()
                 } else {
                     Rectangle()
@@ -104,25 +108,24 @@ struct CompactProductCardView: View {
             .cornerRadius(4)
             
             // Product Info
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 // Brand
                 Text(item.brand.uppercased())
-                    .font(.syne(.smallMedium))
+                    .font(.roboto(.body2Medium))
                     .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(1)
                 
                 // Title
                 Text(item.title)
-                    .font(.syne(.body2Medium))
+                    .font(.roboto(.captionRegular))
                     .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(2)
                 
                 // Price
                 Text("฿\(String(format: "%.0f", item.price))")
-                    .font(.syne(.body2Medium))
+                    .font(.roboto(.captionRegular))
                     .foregroundStyle(.black)
             }
-            .frame(width: width)
         }
         .frame(width: width)
     }
@@ -149,7 +152,7 @@ struct CompactProductCardView: View {
         ProductCardView(item: mockItem)
             .frame(width: 120)
         
-        CompactProductCardView(item: mockItem)
+        CompactProductCardView(item: mockItem, width: 140)
     }
     .padding()
 }

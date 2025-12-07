@@ -1,0 +1,78 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own document
+      allow read: if isOwner(userId);
+      
+      // Users can create their own document during signup
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      
+      // Users can update their own document
+      allow update: if isOwner(userId);
+      
+      // Users cannot delete their own document (use Cloud Function)
+      allow delete: if isOwner(userId);
+      
+      // Email verification subcollection
+      match /verification/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      // Private info subcollection (sizes, etc.)
+      match /privateInfo/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    
+    // Items collection (fashion items for sale)
+    match /items/{itemId} {
+      // Anyone can read items (public marketplace)
+      allow read: if true;
+      
+      // Only authenticated users can create items
+      allow create: if isSignedIn();
+      
+      // Only item owner can update/delete their items
+      allow update, delete: if isSignedIn() && 
+        resource.data.sellerID == request.auth.uid;
+    }
+    
+    // Chatrooms collection
+    match /chatrooms/{chatroomId} {
+      // Users can read chatrooms they're part of
+      allow read: if isSignedIn() && 
+        request.auth.uid in resource.data.participants;
+      
+      // Users can create chatrooms
+      allow create: if isSignedIn();
+      
+      // Users can update chatrooms they're part of
+      allow update: if isSignedIn() && 
+        request.auth.uid in resource.data.participants;
+      
+      // Messages subcollection
+      match /messages/{messageId} {
+        // Users can read messages in chatrooms they're part of
+        allow read: if isSignedIn() && 
+          request.auth.uid in get(/databases/$(database)/documents/chatrooms/$(chatroomId)).data.participants;
+        
+        // Users can create messages in chatrooms they're part of
+        allow create: if isSignedIn() && 
+          request.auth.uid in get(/databases/$(database)/documents/chatrooms/$(chatroomId)).data.participants;
+      }
+    }
+  }
+}
