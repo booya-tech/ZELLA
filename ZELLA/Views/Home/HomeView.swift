@@ -17,13 +17,14 @@ struct HomeView: View {
                 
                 ScrollView {
                     VStack(spacing: Constants.sectionSpacing) {
+                        // Banner
                         if !viewModel.heroBanners.isEmpty {
                             HeroCarouselView(
                                 banners: viewModel.heroBanners,
                                 currentIndex: $viewModel.currentHeroIndex
                             )
                         }
-                        
+                        // Recently Viewed
                         if !viewModel.recentlyViewedItems.isEmpty {
                             HorizontalSectionView(
                                 title: AppString.recentlyViewed,
@@ -32,7 +33,7 @@ struct HomeView: View {
                                 onSeeAllTap: {}
                             )
                         }
-                        
+                        // Trending
                         if !viewModel.trendingItems.isEmpty {
                             HorizontalSectionView(
                                 title: AppString.trending,
@@ -41,7 +42,15 @@ struct HomeView: View {
                                 onSeeAllTap: {}
                             )
                         }
-                        
+                        // Brands
+                        if !viewModel.suggestedBrands.isEmpty {
+                            BrandSectionView(
+                                brands: viewModel.suggestedBrands,
+                                onSeeAllTap: {},
+                                onTapBrand: { _ in }
+                            )
+                        }
+                        // Suggested Store
                         if !viewModel.suggestedStore.isEmpty {
                             HorizontalSectionView(
                                 title: AppString.suggestedStore,
@@ -51,33 +60,62 @@ struct HomeView: View {
                             )
                         }
                         
-                        if !viewModel.suggestedBrands.isEmpty {
-                            BrandSectionView(
-                                brands: viewModel.suggestedBrands,
-                                onSeeAllTap: {},
-                                onTapBrand: { _ in }
-                            )
-                        }
-                        
+                        // My Feed
                         DSHeaderTextSection(
                             title: AppString.myFeed,
                             onSeeAllTap: {}
                         )
+                        CategoryTabBar(selectedCategory: $viewModel.selectedCategory)
+                        myFeedGridSection
                     }
                 }
-                //                CategoryTabBar(selectedCategory: $viewModel.selectedCategoty)
-                //
-                //                MyFeedView(selectedCategory: $viewModel.selectedCategoty) { item in
-                //                    selectedItem = item
-                //                }
             }
         }
 //        .navigationDestination(item: $selectedItem, {})
         .task {
             viewModel.loadMockData()
+            viewModel.loadMyFeed()
         }
     }
     
+    private var myFeedGridSection: some View {
+        LazyVGrid(
+            columns: [
+                GridItem(.flexible(), spacing: 8),
+                GridItem(.flexible(), spacing: 8),
+                GridItem(.flexible(), spacing: 8)
+            ],
+            spacing: 8
+        ) {
+            ForEach(Array(viewModel.myFeeditems.enumerated()), id: \.element.id) { index, item in
+                Button {
+                    selectedItem = item
+                } label: {
+                    ProductCardView(item: item)
+                }
+                .buttonStyle(.plain)
+                .onAppear {
+                    // Load more
+                    if index >= viewModel.myFeeditems.count - 5 {
+                        viewModel.loadMyFeed()
+                    }
+                }
+            }
+
+            // Loading indicator
+            if viewModel.isLoadingMore {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
+                .gridCellColumns(3)
+                .padding()
+            }
+        }
+        .padding(.horizontal, Constants.mainPadding)
+    }
+
     private var headerView: some View {
         HStack {
             Button(action: {}) {

@@ -10,19 +10,21 @@ import FirebaseCore
 
 struct ProductCardView: View {
     let item: Item
+    private let imageAspectRatio: CGFloat = 1.5
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Constants.secondaryPadding) {
             // Product Image
             ZStack(alignment: .topTrailing) {
                 if let imageName = item.localImageName {
-                    Image(imageName)
-                        .resizable()
-                        // .aspectRatio(1, contentMode: .fill)
-                        .scaledToFit()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 150)
-                        .clipped()
+                    GeometryReader { geo in
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width, height: geo.size.width * imageAspectRatio)
+                            .clipped()
+                    }
+                   .aspectRatio(1/imageAspectRatio, contentMode: .fit)
                 } else {
                     Rectangle()
                         .fill(Color(.systemGray5))

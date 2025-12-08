@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI 
 
+@available(*, deprecated, message: "This class is deprecated. Use myFeedGridSection(SwiftUI) in HomeView instead for better performance and features.")
 class ProductCollectionViewCell: UICollectionViewCell {
     static let identifier = "ProductCollectionViewCell"
 
