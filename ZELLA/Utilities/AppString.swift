@@ -47,7 +47,7 @@ enum AppString {
     static let enterEmail = "Enter your email address"
     static let enterName = "Enter name"
     static let enterPassword = "Enter password"
-    static let reenterPassword = "Re-enter password"
+    static let reEnterPassword = "Re-enter password"
     
     // MARK: - Errors
     static let errorTitle = "Error"
@@ -67,6 +67,7 @@ enum AppString {
     static let weakPassword = "Password is too weak. Use at least 6 characters."
     static let invalidVerificationCode = "Invalid verification code. Please try again."
     static let verificationCodeCheckDigits = "Verification code must be 5 digits"
+    static let imageUnavailable = "Image Unavailable"
     
     // MARK: - Coming Soon
     static let emailSignInComingSoon = "Email sign in not yet implemented"

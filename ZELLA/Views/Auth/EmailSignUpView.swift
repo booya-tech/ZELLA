@@ -76,7 +76,7 @@ struct EmailSignUpView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(AppString.confirmPassword)
                     .font(.subheadline)
-                DSTextField(placeholder: AppString.reenterPassword, text: $viewModel.confirmPassword, isSecure: true)
+                DSTextField(placeholder: AppString.reEnterPassword, text: $viewModel.confirmPassword, isSecure: true)
             }
         }
         .padding(.horizontal)

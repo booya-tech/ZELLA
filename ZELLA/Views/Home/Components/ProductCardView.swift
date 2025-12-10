@@ -50,22 +50,22 @@ struct ProductCardView: View {
             .cornerRadius(4)
             
             // Product Info
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 // Brand
                 Text(item.brand.uppercased())
-                    .font(.roboto(.smallMedium))
-                    .foregroundStyle(.secondary)
+                    .font(.roboto(.body2Medium))
+                    .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(1)
                 
                 // Title
                 Text(item.title)
-                    .font(.roboto(.smallRegular))
-                    .foregroundStyle(.primary)
+                    .font(.roboto(.captionRegular))
+                    .foregroundStyle(AppColors.primaryBlack)
                     .lineLimit(2)
                 
                 // Price
-                Text("฿\(String(format: "%.0f", item.price))")
-                    .font(.roboto(.smallMedium))
+                Text(item.price.toPriceString())
+                    .font(.roboto(.body2Medium))
                     .foregroundStyle(AppColors.primaryBlack)
             }
         }
@@ -88,10 +88,15 @@ struct CompactProductCardView: View {
                         .clipped()
                 } else {
                     Rectangle()
-                        .fill(Color(.systemGray5))
+                        .fill(AppColors.disabled)
                         .aspectRatio(1, contentMode: .fill)
                         .overlay {
-                            FontAwesomeIcon(FontAwesome.Icon.camera)
+                            VStack {
+                                FontAwesomeIcon(FontAwesome.Icon.camera)
+                                Text(AppString.imageUnavailable)
+                                    .font(.roboto(.captionRegular))
+                                    .foregroundStyle(AppColors.primaryBlack)
+                            }
                         }
                 }
                 
@@ -124,7 +129,7 @@ struct CompactProductCardView: View {
                     .lineLimit(2)
                 
                 // Price
-                Text("฿\(String(format: "%.0f", item.price))")
+                Text(item.price.toPriceString())
                     .font(.roboto(.captionRegular))
                     .foregroundStyle(.black)
             }

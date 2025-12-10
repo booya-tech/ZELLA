@@ -21,6 +21,7 @@ struct HomeView: View {
                         if !viewModel.heroBanners.isEmpty {
                             HeroCarouselView(
                                 banners: viewModel.heroBanners,
+                                bannerHeight: Constants.bannerHeight,
                                 currentIndex: $viewModel.currentHeroIndex
                             )
                         }
@@ -119,8 +120,7 @@ struct HomeView: View {
     private var headerView: some View {
         HStack {
             Button(action: {}) {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 20))
+                FontAwesomeIcon(FontAwesome.Icon.magnifyingGlass, size: 20)
                     .foregroundStyle(AppColors.primaryBlack)
             }
             
@@ -133,8 +133,7 @@ struct HomeView: View {
             Spacer()
             
             Button(action: {}) {
-                Image(systemName: "bag")
-                    .font(.system(size: 20))
+                FontAwesomeIcon(FontAwesome.Icon.shoppingBag, size: 20)
                     .foregroundStyle(AppColors.primaryBlack)
             }
         }

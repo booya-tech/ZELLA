@@ -36,3 +36,18 @@ enum Helpers {
         return hashString
     }
 }
+
+// MARK: - Price Formatting Extension
+extension Double {
+    func toPriceString() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.maximumFractionDigits = 0
+        
+        if let formattedPrice = formatter.string(from: NSNumber(value: self)) {
+            return "฿\(formattedPrice)"
+        }
+        return "฿\(String(format: "%.0f", self))"
+    }
+}

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct HeroCarouselView: View {
     let banners: [HeroBanner]
+    let bannerHeight: CGFloat
     @Binding var currentIndex: Int
     @State private var timer: Timer?
-    let bannerHeight: CGFloat = 500
 //    @StateObject var viewModel = HeroCarouselViewModel()
     
     var body: some View {
@@ -22,9 +22,8 @@ struct HeroCarouselView: View {
                     if let imageName = banner.localImageName {
                         Image(imageName)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .frame(height: bannerHeight)
-                            .clipped()
                     } else {
                         Rectangle()
                             .fill(Color(.systemGray5))
@@ -37,7 +36,7 @@ struct HeroCarouselView: View {
                 .tag(index)
             }
         }
-        .frame(height: 280)
+        .frame(height: bannerHeight)
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(.page(backgroundDisplayMode: .always))
         .onAppear {
@@ -69,5 +68,5 @@ struct HeroCarouselView: View {
         HeroBanner(id: "3", imageURL: nil, localImageName: "mock_hero_03"),
     ]
     
-    HeroCarouselView(banners: mockBanners, currentIndex: .constant(0))
+    HeroCarouselView(banners: mockBanners, bannerHeight: 600, currentIndex: .constant(0))
 }

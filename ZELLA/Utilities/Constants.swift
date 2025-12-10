@@ -19,4 +19,7 @@ struct Constants {
     
     // Section
     static let sectionSpacing: CGFloat = 8
+    
+    // Home
+    static let bannerHeight: CGFloat = 380
 }
