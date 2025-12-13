@@ -22,11 +22,24 @@ struct Item: Identifiable, Codable {
     var imageURLs: [String]
     var status: ItemStatus
     let postedDate: Timestamp
+    var originalPrice: Double?
+    var localImageNames: [String]?
     
     // Non-codable property for the UI
     var itemID: String { id ?? "" }
     
     var localImageName: String?
+
+    // Computed properties
+    var hasDiscount: Bool {
+        guard let original = originalPrice else { return false }
+        return original > price
+    }
+
+    var discountPercentage: Int? {
+        guard let original = originalPrice, hasDiscount else { return nil }
+        return Int((original - price) / original * 100)
+    }
 }
 
 enum ItemCondition: String, Codable, CaseIterable {
