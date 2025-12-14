@@ -30,7 +30,9 @@ struct HomeView: View {
                             HorizontalSectionView(
                                 title: AppString.recentlyViewed,
                                 items: viewModel.recentlyViewedItems,
-                                onTapItem: { selectedItem = $0 },
+                                onTapItem: {
+                                    selectedItem = $0
+                                },
                                 onSeeAllTap: {}
                             )
                         }
@@ -71,8 +73,8 @@ struct HomeView: View {
                     }
                 }
             }
+            .navigationDestination(item: $selectedItem, destination: { ProductDetailView(item: $0) })
         }
-//        .navigationDestination(item: $selectedItem, {})
         .task {
             viewModel.loadMockData()
             viewModel.loadMyFeed()
@@ -82,11 +84,11 @@ struct HomeView: View {
     private var myFeedGridSection: some View {
         LazyVGrid(
             columns: [
-                GridItem(.flexible(), spacing: 8),
-                GridItem(.flexible(), spacing: 8),
-                GridItem(.flexible(), spacing: 8)
+                GridItem(.flexible(), spacing: Constants.secondaryPadding),
+                GridItem(.flexible(), spacing: Constants.secondaryPadding),
+                GridItem(.flexible(), spacing: Constants.secondaryPadding)
             ],
-            spacing: 8
+            spacing: Constants.secondaryPadding
         ) {
             ForEach(Array(viewModel.myFeeditems.enumerated()), id: \.element.id) { index, item in
                 Button {

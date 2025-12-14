@@ -23,6 +23,8 @@ struct AppColors {
     static let primaryWhite = Color.white
     static let primaryClear = Color.clear
     static let primaryGrey = Color.gray
+    static let primaryRed = Color.red
+    static let primaryYellow = Color.yellow
     
     // Background
     static let background = Color(.systemBackground)

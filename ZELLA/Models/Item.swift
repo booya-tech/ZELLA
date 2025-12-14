@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 /// Represents an item document in the `items` collection
-struct Item: Identifiable, Codable {
+struct Item: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
     let sellerID: String // Links to a User.id
     var title: String
@@ -23,12 +23,19 @@ struct Item: Identifiable, Codable {
     var status: ItemStatus
     let postedDate: Timestamp
     var originalPrice: Double?
+    var localImageName: String?
     var localImageNames: [String]?
     
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     // Non-codable property for the UI
     var itemID: String { id ?? "" }
-    
-    var localImageName: String?
 
     // Computed properties
     var hasDiscount: Bool {

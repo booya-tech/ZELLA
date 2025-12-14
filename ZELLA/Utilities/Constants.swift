@@ -12,6 +12,7 @@ struct Constants {
     static let mainPadding: CGFloat = 16
     static let secondaryPadding: CGFloat = 8
     static let thirdPadding: CGFloat = 6
+    static let fourthPadding: CGFloat = 4
     
     // Radius
     static let buttonRadius: CGFloat = 8

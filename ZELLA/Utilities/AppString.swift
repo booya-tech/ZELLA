@@ -122,4 +122,13 @@ enum AppString {
     static let myFeed = "My Feed"
     static let seeAll = "See All"
     static let loadingMore = "Loading more..."
+
+    // MARK: - Product Description
+    static let productDescriptionSectionTitle = "DESCRIPTION:"
+    static let productDetailsSectionTitle = "PRODUCT DETAILS:"
+    static let productDescriptionSectionSize = "Size"
+    static let productDescriptionSectionCategory = "Category"
+    static let productDescriptionSectionBrand = "Brand"
+    static let productDescriptionSectionCondition = "Condition"
+    static let productDescriptionSectionMayAlsoLike = "You may also like"
 }
