@@ -13,18 +13,22 @@ struct ProductImageGalleryView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            TabView(selection: $currentIndex) {
-                ForEach(0..<imageNames.count, id: \.self) { index in
-                    Image(imageNames[index])
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 420)
-                        .clipped()
-                        .tag(index)
+            GeometryReader { geo in
+                TabView(selection: $currentIndex) {
+                    ForEach(0..<imageNames.count, id: \.self) { index in
+                        Image(imageNames[index])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .frame(width: geo.size.width)
+                            .clipped()
+                            .tag(index)
+                    }
                 }
+                .frame(height: 492)
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
-            .frame(height: 420)
-            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: 492)
             
             // Custom Page Indicators
             if imageNames.count > 1 {
