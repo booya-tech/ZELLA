@@ -28,7 +28,7 @@ struct ZELLAApp: App {
                         sourceApplication: nil,
                         annotation: [UIApplication.OpenURLOptionsKey.annotation]
                     )
-                }
+                }.preferredColorScheme(.light)
         }
     }
 }
