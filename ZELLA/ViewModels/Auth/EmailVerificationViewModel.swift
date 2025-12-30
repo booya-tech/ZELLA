@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 class EmailVerificationViewModel {
-    private let authService = AuthService.shared
+    private let authService: AuthServiceProtocol
     var verificationCode: String = ""
     var isLoading: Bool = false
     var errorMessage: String?
@@ -22,10 +22,16 @@ class EmailVerificationViewModel {
     var email: String
     var name: String
 
-    init(uid: String, email: String, name: String) {
+    // Default initializer uses shared instance
+    convenience init(uid: String, email: String, name: String) {
+        self.init(uid: uid, email: email, name: name, authService: AuthService.shared)
+    }
+
+    init(uid: String, email: String, name: String, authService: AuthServiceProtocol) {
         self.uid = uid
         self.email = email
         self.name = name
+        self.authService = authService
     }
     
     // MARK: - Verification
