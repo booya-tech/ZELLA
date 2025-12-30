@@ -88,7 +88,7 @@ class EmailVerificationViewModel {
             
             Logger.log("🟢 Verification code resent successfully")
             
-            // Start cooldown (60 seconds)
+            // Start cooldown (30 seconds)
             startResendCooldown()
             
         } catch {

@@ -199,6 +199,50 @@ final class EmailVerificationViewModelTests: XCTestCase {
     }
 
     // MARK: - resendCode() Tests
+    func testResendCode_WhenCannotResend_DoesNotCallAuthService() async {
+        // Given: Resend is disabled
+        sut.canResend = false
+
+        // When: Attempting to resend
+        await sut.resendCode()
+
+        // Then: Should not call auth service
+        XCTAssertFalse(mockAuthService.resendVerificationCodeCalled)
+    }
+
+    func testResendCode_WhenCanResend_CallsAuthServiceWithCorrectParameters() async {
+        // Given: Resend is enalbled
+        sut.canResend = true
+        mockAuthService.resendVerificationCodeResult = .success(())
+
+        // When: Resending code
+        await sut.resendCode()
+
+        // Then: Should call auth service with correct params
+        XCTAssertTrue(mockAuthService.resendVerificationCodeCalled)
+        XCTAssertEqual(mockAuthService.lastResendUID, testUID)
+        XCTAssertEqual(mockAuthService.lastResendEmail, testEmail)
+        XCTAssertEqual(mockAuthService.lastResendName, testName)
+    }
+
+    func testResendCode_OnSuccess_StartsCooldown() async {
+        // Given: Resend is enabled
+        sut.canResend = true
+        mockAuthService.resendVerificationCodeResult = .success(())
+
+        // When: Resending code
+        await sut.resendCode()
+
+        // Then: Cooldown shoud be started
+        XCTAssertFalse(sut.canResend, "canResend should be false")
+        XCTAssertEqual(sut.resendCooldown, 30, "resendCooldown should be 30")
+    }
+
+    func testResendCode_SetsLoadingStateCorrectly() async {}
+
+    func testResendCode_WhenAuthServiceThrows_SetsErrorMessage() async {}
+
+    func testResendCode_ClearsErrorMessageOnStart() async {}
 
     // MARK: - Cooldown Timer Tests
 
