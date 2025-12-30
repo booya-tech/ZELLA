@@ -11,7 +11,7 @@ import Foundation
 class MockAuthService: AuthServiceProtocol {
     // Track method calls
     var verifyEmailCodeCalled = false
-    var veriyEmailCodeCallCount = 0
+    var verifyEmailCodeCallCount = 0
     var lastVerifyEmailCodeUID : String?
     var lastVerifyEmailCodeInput: String?
 
@@ -35,12 +35,12 @@ class MockAuthService: AuthServiceProtocol {
 
     func verifyEmailCode(uid: String, inputCode: String) async throws -> Bool {
         verifyEmailCodeCalled = true
-        veriyEmailCodeCallCount += 1
+        verifyEmailCodeCallCount += 1
         lastVerifyEmailCodeUID = uid
         lastVerifyEmailCodeInput = inputCode
 
         if simulateDelay > 0 {
-            try await Task.sleep(for: UInt64(simulateDelay * 1_000_000_000))
+            try await Task.sleep(nanoseconds: UInt64(simulateDelay * 1_000_000_000))
         }
 
         switch verifyEmailCodeResult {
@@ -59,7 +59,7 @@ class MockAuthService: AuthServiceProtocol {
         lastResendName = name
 
         if simulateDelay > 0 {
-            try await Task.sleep(for: UInt64(simulateDelay * 1_000_000_000))
+            try await Task.sleep(nanoseconds: UInt64(simulateDelay * 1_000_000_000))
         }
 
         switch resendVerificationCodeResult {
@@ -76,7 +76,7 @@ class MockAuthService: AuthServiceProtocol {
         lastDeleteAccountUID = uid
 
         if simulateDelay > 0 {
-            try await Task.sleep(for: UInt64(simulateDelay * 1_000_000_000))
+            try await Task.sleep(nanoseconds: UInt64(simulateDelay * 1_000_000_000))
         }
 
         switch deleteAccountResult {
