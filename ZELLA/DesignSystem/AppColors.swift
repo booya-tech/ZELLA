@@ -26,6 +26,9 @@ struct AppColors {
     static let primaryRed = Color.red
     static let primaryYellow = Color.yellow
     
+    // Secondary
+    static let textSecondary = Color.secondary
+    
     // Background
     static let background = Color(.systemBackground)
     static let secondaryBackground = Color(.secondarySystemBackground)

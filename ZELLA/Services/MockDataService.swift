@@ -88,6 +88,23 @@ class MockDataService {
     func getTrending() -> [Item] {
         return Array(allMockItems.shuffled().prefix(10))
     }
+    
+    // MARK: - Search
+    func searchItems(query: String, category: ItemCategory = .all) -> [Item] {
+        let lowercasedQuery = query.lowercased()
+        
+        return allMockItems.filter { item in
+            // Category filter
+            let categoryMatch = category == .all || item.category == category
+            
+            // Text search in title, brand, description
+            let textMatch = item.title.lowercased().contains(lowercasedQuery) ||
+                            item.brand.lowercased().contains(lowercasedQuery) ||
+                            item.description.lowercased().contains(lowercasedQuery)
+            
+            return categoryMatch && textMatch
+        }
+    }
 
     // MARK: - Generate Mock Items
     func generateMockItems() -> [Item] {

@@ -67,11 +67,12 @@ enum FontAwesome {
         static let chevronLeft = "\u{f053}"
         static let magnifyingGlass = "\u{f002}"
         static let shoppingBag = "\u{f290}"
-        
         // Brand icons
         static let facebook = "\u{f09a}"
         static let google = "\u{f1a0}"
         static let apple = "\u{f179}"
+        // Search
+        static let clockRotateLeft = "\u{f1da}"
     }
 }
 

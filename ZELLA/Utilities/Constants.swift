@@ -10,6 +10,7 @@ import Foundation
 struct Constants {
     // Padding
     static let mainPadding: CGFloat = 16
+    static let searchRowPadding: CGFloat = 12
     static let secondaryPadding: CGFloat = 8
     static let thirdPadding: CGFloat = 6
     static let fourthPadding: CGFloat = 4

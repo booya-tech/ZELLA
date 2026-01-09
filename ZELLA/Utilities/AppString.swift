@@ -123,6 +123,14 @@ enum AppString {
     static let seeAll = "See All"
     static let loadingMore = "Loading more..."
 
+    // MARK: - Search
+    static let searchPlaceholder = "Search products..."
+    static let recentSearches = "Recent Searches"
+    static let searchResults = "results"
+    static let noSearchResults = "No results found"
+    static let tryDifferentKeywords = "Try different keywords or remove filters"
+    static let searchInitialHint = "Search for brands, items, or categories"
+
     // MARK: - Product Description
     static let productDescriptionSectionTitle = "DESCRIPTION:"
     static let productDetailsSectionTitle = "PRODUCT DETAILS:"

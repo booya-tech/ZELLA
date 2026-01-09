@@ -9,6 +9,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
     @State private var selectedItem: Item?
+    @State private var showSearch: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -73,7 +74,8 @@ struct HomeView: View {
                     }
                 }
             }
-            .navigationDestination(item: $selectedItem, destination: { ProductDetailView(item: $0) })
+            .navigationDestination(item: $selectedItem) { ProductDetailView(item: $0) }
+            .navigationDestination(isPresented: $showSearch) { SearchView() }
         }
         .task {
             viewModel.loadMockData()
@@ -121,7 +123,9 @@ struct HomeView: View {
 
     private var headerView: some View {
         HStack {
-            Button(action: {}) {
+            Button {
+                showSearch = true
+            } label: {
                 FontAwesomeIcon(FontAwesome.Icon.magnifyingGlass, size: 20)
                     .foregroundStyle(AppColors.primaryBlack)
             }
@@ -142,6 +146,7 @@ struct HomeView: View {
         .padding(.horizontal, Constants.mainPadding)
         .padding(.vertical, Constants.secondaryPadding)
         .background(AppColors.primaryClear)
+        .navigationDestination(isPresented: $showSearch) { SearchView() }
     }
 }
 

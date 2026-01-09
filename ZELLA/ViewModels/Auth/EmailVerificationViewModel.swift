@@ -98,7 +98,7 @@ class EmailVerificationViewModel {
     }
 
     // MARK: - Cooldown Timer
-    private func startResendCooldown() {
+    public func startResendCooldown() {
         canResend = false
         resendCooldown = 30
         
