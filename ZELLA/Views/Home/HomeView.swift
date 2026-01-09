@@ -146,7 +146,7 @@ struct HomeView: View {
         .padding(.horizontal, Constants.mainPadding)
         .padding(.vertical, Constants.secondaryPadding)
         .background(AppColors.primaryClear)
-        .navigationDestination(isPresented: $showSearch) { SearchView() }
+        // .navigationDestination(isPresented: $showSearch) { SearchView() }
     }
 }
 
