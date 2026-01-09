@@ -41,20 +41,21 @@ class SearchViewModel {
         loadRecentSearches()
     }
 
-    // MARK: - Search Methods
-    func search() {
+    deinit {
         searchTask?.cancel()
-        searchTask = Task {
-            try? await Task.sleep(for: .milliseconds(300))
-            guard !Task.isCancelled else { return }
-
-            await performSearch()
-        }
     }
 
-
+    // MARK: - Search Methods
     private func performDebouncedSearch() {
         searchTask?.cancel()
+
+        let trimmed = searchText.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else {
+            filteredItems = []
+            hasSearched = false
+            isSearching = false
+            return
+        }
 
         guard !searchText.isEmpty else { 
             filteredItems = []
@@ -64,16 +65,19 @@ class SearchViewModel {
 
         isSearching = true
 
-        searchTask = Task {
+        searchTask = Task { @MainActor in
             do {
                 try await Task.sleep(nanoseconds: debounceDelay)
 
                 // Check if cancelled
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled else {
+                    isSearching = false
+                    return
+                }
 
-                await performSearch()
+                performSearch()
             } catch {
-                // Task was cancelled
+                isSearching = false
             }
         }
     }
@@ -134,13 +138,19 @@ class SearchViewModel {
     }
 
     private func saveRecentSearches() {
-        UserDefaults.standard.set(recentSearches, forKey: "recentSearches")
+        UserDefaults.standard.set(recentSearches, forKey: Constants.recentSearchesKey)
     }
 
     // MARK: - Recent Searches
     private func loadRecentSearches() {
-        if let savedRecentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") {
+        if let savedRecentSearches = UserDefaults.standard.stringArray(forKey: Constants.recentSearchesKey) {
             recentSearches = savedRecentSearches
         }
+    }
+
+    // Cancel Search
+    func cancelSearch() {
+        searchTask?.cancel()
+        isSearching = false
     }
 }

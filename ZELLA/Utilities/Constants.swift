@@ -24,4 +24,12 @@ struct Constants {
     
     // Home
     static let bannerHeight: CGFloat = 380
+
+    // User Defaults
+    static let recentSearchesKey = "recentSearches"
+
+    // Card's Width
+    static let productCardMinWidth: CGFloat = 110  // Text readability threshold
+    static let productCardMinWidthTwo: CGFloat = 120  // Text readability threshold for two cards
+    static let productCardMaxWidth: CGFloat = 160  // Aesthetic preference
 }

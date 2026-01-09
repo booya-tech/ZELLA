@@ -38,6 +38,9 @@ struct SearchView: View {
         .navigationDestination(item: $selectedItem) { 
             ProductDetailView(item: $0)
         }
+        .onDisappear {
+            viewModel.cancelSearch()
+        }
     }
 
     private var searchHeader: some View {
@@ -135,9 +138,12 @@ struct SearchView: View {
             ScrollView {
                 LazyVGrid(
                     columns: [
-                        GridItem(.flexible(), spacing: Constants.secondaryPadding),
-                        GridItem(.flexible(), spacing: Constants.secondaryPadding),
-                        GridItem(.flexible(), spacing: Constants.secondaryPadding)
+                        GridItem(
+                            .adaptive(
+                                minimum: Constants.productCardMinWidth,
+                                maximum: Constants.productCardMaxWidth
+                            ),
+                            spacing: Constants.secondaryPadding)
                     ],
                     spacing: Constants.secondaryPadding
                 ) {
