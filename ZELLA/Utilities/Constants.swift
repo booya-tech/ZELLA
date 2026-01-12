@@ -27,9 +27,12 @@ struct Constants {
 
     // User Defaults
     static let recentSearchesKey = "recentSearches"
+    static let recentSearchesMaxCount = 10
+    
+    // Search
+    static let searchPageSize = 20
 
     // Card's Width
     static let productCardMinWidth: CGFloat = 110  // Text readability threshold
-    static let productCardMinWidthTwo: CGFloat = 120  // Text readability threshold for two cards
     static let productCardMaxWidth: CGFloat = 160  // Aesthetic preference
 }

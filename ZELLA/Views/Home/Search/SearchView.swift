@@ -21,9 +21,11 @@ struct SearchView: View {
             CategoryTabBar(selectedCategory: $viewModel.selectedCategory)
                 .padding(.vertical, Constants.secondaryPadding)
 
-            // Results(Recent Searches, Search Results) or Empty State
+            // Content States
             if viewModel.isSearching {
                 loadingView
+            } else if viewModel.showError {
+                errorStateView
             } else if viewModel.showRecentSearches {
                 recentSearchesView
             } else if viewModel.showEmptyState {
@@ -45,7 +47,6 @@ struct SearchView: View {
 
     private var searchHeader: some View {
         HStack {
-            // Magnifying Glass
             Button {
                 dismiss()
             } label: {
@@ -56,7 +57,7 @@ struct SearchView: View {
             DSSearchField(
                 text: $viewModel.searchText,
                 placeholder: AppString.searchPlaceholder,
-                onSearch: { viewModel.submitSearch() }
+                onSearch: { viewModel.saveToRecentSearches() }
             )
         }
         .padding(.horizontal, Constants.mainPadding)
@@ -92,6 +93,7 @@ struct SearchView: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
 
             Spacer()
         }
@@ -123,14 +125,13 @@ struct SearchView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.searchText = search
-            viewModel.submitSearch()
+            viewModel.saveToRecentSearches()
         }
     }
 
     private var searchResultsView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Results count
-            Text("\(viewModel.filteredItems.count) \(AppString.searchResults)")
+            Text("\(viewModel.totalResultsCount) \(AppString.searchResults)")
                 .font(.roboto(.captionRegular))
                 .foregroundStyle(AppColors.primaryBlack)
                 .padding(.horizontal, Constants.mainPadding)
@@ -154,9 +155,18 @@ struct SearchView: View {
                             ProductCardView(item: item)
                         }
                         .buttonStyle(.plain)
+                        .onAppear {
+                            viewModel.loadMoreIfNeeded(currentItem: item)
+                        }
                     }
                 }
                 .padding(.horizontal, Constants.mainPadding)
+                
+                // Load More Indicator
+                if viewModel.isLoadingMore {
+                    ProgressView()
+                        .padding()
+                }
             }
             .frame(maxHeight: .infinity)
             .scrollDismissesKeyboard(.interactively)
@@ -170,6 +180,33 @@ struct SearchView: View {
                 .scaleEffect(1.2)
             Spacer()
         }
+    }
+    
+    private var errorStateView: some View {
+        VStack(spacing: 16) {
+            Spacer()
+            FontAwesomeIcon(FontAwesome.Icon.circleExclamation, size: 48)
+                .foregroundStyle(AppColors.error)
+            
+            Text(viewModel.errorMessage ?? AppString.errorTitle)
+                .font(.roboto(.bodyMedium))
+                .foregroundStyle(AppColors.primaryBlack)
+                .multilineTextAlignment(.center)
+            
+            Button {
+                viewModel.retrySearch()
+            } label: {
+                Text(AppString.tryAgain)
+                    .font(.roboto(.bodyMedium))
+                    .foregroundStyle(AppColors.primaryWhite)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(AppColors.primaryBlack)
+                    .cornerRadius(Constants.buttonRadius)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, Constants.mainPadding)
     }
 
     private var emptyStateView: some View {

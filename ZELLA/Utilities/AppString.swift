@@ -113,6 +113,7 @@ enum AppString {
     // MARK: - Common
     static let ok = "OK"
     static let cancel = "Cancel"
+    static let tryAgain = "Try Again"
     
     //MARK: - Home
     static let recentlyViewed = "Recently Viewed"
@@ -130,6 +131,9 @@ enum AppString {
     static let noSearchResults = "No results found"
     static let tryDifferentKeywords = "Try different keywords or remove filters"
     static let searchInitialHint = "Search for brands, items, or categories"
+    // Search Errors
+    static let searchErrorNetworkError = "Unable to connect. Please check your internet."
+    static let searchErrorInvalidQuery = "Invalid search query."
 
     // MARK: - Product Description
     static let productDescriptionSectionTitle = "DESCRIPTION:"

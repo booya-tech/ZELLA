@@ -73,6 +73,8 @@ enum FontAwesome {
         static let apple = "\u{f179}"
         // Search
         static let clockRotateLeft = "\u{f1da}"
+        // Error
+        static let circleExclamation = "\u{f06a}"
     }
 }
 
